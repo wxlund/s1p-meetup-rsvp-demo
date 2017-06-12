@@ -1374,24 +1374,6 @@ stream list
 stream list
 field-value-counter list
 field-value-counter display --name venue
-stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup" --deploy
-stream list
-stream list
-stream list
-stream destroy csql
-stream create --name csql --definition "meetup-rsvp | cassandra --ingest-query='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup" --deploy
-stream list
-stream list
-stream list
-stream destroy csql
-stream create --name csql --definition "meetup-rsvp | cassandra --ingest-query='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username='cassandra' --Password='cassandra'" --deploy
-stream list
-stream list
-stream destroy csql
-stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username='cassandra' --Password='cassandra'" --deploy
-stream list
-stream list
-stream destroy csql
 stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username=cassandra --Password=cassandra" --deploy
 stream list
 stream list

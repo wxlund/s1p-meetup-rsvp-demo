@@ -1,5 +1,65 @@
-# TwitterStream Source
+# Meetup-RSVP Stream Source
 
 To learn more about this application and the supported properties, please review the following link.
 
-include::spring-cloud-starter-stream-source-twitterstream/README.adoc[]
+Meetup-RSVP Stream Source
+
+This source ingests data from Meetup-RSVP’s streaming @ http://stream.meetup.com/2/rsvps.
+
+*Options*
+
+The meetups-rsvp source has the following options:
+
+#Note - currently hardcoded
+
+meetup-url = http://stream.meetup.com/2/rsvps
+session.executionRootDirectorysion=$PWD
+
+#TODO working on RT analytics for dashboard analytics
+#twitter.stream.language
+#The language of the tweet text. (String, default: <none>)
+
+#twitter.stream.stream-type
+#Meetup-RSVP stream type (such as sample, firehose). Default is sample. (Meetup-RSVPStreamType, default: <none>, possible values: SAMPLE,FIREHOSE)
+
+Note
+Meetup-RSVP emit JSON in the native Meetup-RSVP format.
+Build
+
+$ mvn clean package
+
+Create package for each message bus option via
+./mvnw clean install -PgenerateApps
+
+Register the app with dataflow (adjust for your working directory)
+
+>app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+
+Requirements for running in local mode:
+
+Run RabbitMQ
+
+$ sudo rabbitmq-server start
+
+Run Redis
+
+$redis-server
+
+Run Cassandra from home directory:
+
+$ bin/dse cassandra
+
+to view the sink results run the following:
+
+1st time only:
+
+CREATE TABLE meetup.meetups (
+    id uuid PRIMARY KEY,
+    rsvp_id int,
+    venue_name text
+)
+
+then after executing shell script you can view the results with:
+
+select * from meetups limit 10;
+

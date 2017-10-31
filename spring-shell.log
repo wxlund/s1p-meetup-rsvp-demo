@@ -1386,3 +1386,165 @@ stream list
 stream list
 quit
 // dataflow 1.2.0.RELEASE log closed at 2017-06-12 16:08:39
+// dataflow 1.2.0.RELEASE log opened at 2017-06-12 16:44:21
+stream list
+app list
+stream list
+dataflow config server http://localhost:9393
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username=cassandra --Password=cassandra" --deploy
+stream undeploy csql
+stream list
+stream create cassandrastream --definition "http --server.port=8888 --spring.cloud.stream.bindings.output.contentType='application/json' | cassandra --ingestQuery='insert into book (id, isbn, title, author) values (uuid(), ?, ?, ?)' --keyspace=clouddata" --deploy
+stream list
+stream list
+stream list
+http post --contentType 'application/json' --data '{"isbn": "1599869772", "title": "The Art of War", "author": "Sun Tzu"}' --target http://localhost:8888
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp --spring.cloud.stream.bindings.output.contentType='application/json' | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream list
+stream list
+stream list
+http post --contentType 'application/json' --data '{"isbn": "1599869773", "title": "The Art of Spring Boot", "author": "Josh Long"}' --target http://localhost:8888
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp --spring.cloud.stream.bindings.output.contentType='application/json' | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vendue_name values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp --spring.cloud.stream.bindings.output.contentType='application/json' | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+// [failed] stream create --name csql --definition "meetup-rsvp  | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream list
+stream destroy csql;
+stream create --name csql --definition "meetup-rsvp  | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue.venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream undeploy csql
+stream deploy csql;
+stream list
+stream list
+stream list
+stream list
+stream undeploy csql
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream list
+stream list
+stream destroy csql;
+stream create --name csql --definition "meetup-rsvp  | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue.venue_name.text) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream list
+stream list
+stream list
+stream destroy csql;
+stream create --name csql --definition "meetup-rsvp  | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream list
+stream list
+stream list
+stream destroy csql
+app list
+stream list
+stream create --name csql --definition "meetup-rsvp  | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream list
+app list
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2017-06-16 12:02:00
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+// [failed] stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=/Users/wlund/Dropbox/git-workspace/meetup-rsvp-master/cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-06-16 15:46:12
+// dataflow 1.2.0.RELEASE log opened at 2017-06-16 15:46:22
+// [failed] stream create --name csql --definition "meetup-rsvp  | groovy-transformer --script=Users/wlund/Dropbox/git-workspace/meetup-rsvp-master/extranct-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+app list
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=Users/wlund/Dropbox/git-workspace/meetup-rsvp-master/extranct-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=Users/wlund/Dropbox/git-workspace/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=/Users/wlund/Dropbox/git-workspace/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+// [failed] stream destroy cxql
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script='/Users/wlund/Dropbox/git-workspace/meetup-rsvp-master/extract-venue.groovy' | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script='/Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy' | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream destroy csql
+// [failed] stream destroy csql
+stream list
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=/Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id,venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=extract-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id,venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script='/Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy' | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2017-06-17 08:46:31
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream list
+stream undeploy csql
+stream deploy csql
+stream list
+stream list
+stream undeploy csql
+stream deploy csql
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream undeploy csql
+// dataflow 1.2.0.RELEASE log opened at 2017-07-21 09:19:57
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app list
+// [failed] stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+app list
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream list
+stream undeploy csql
+stream deploy csql
+stream list
+stream undeploy csql
+stream list
+stream list
+stream create venue-name --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue_name.text --name=venue --store=redis" --deploy
+stream list
+// [failed] stream deploy venue-name
+// [failed] field-value-counter display --name venue-name
+field-value-counter display --name venue
+stream list
+field-value-counter display --name venue
+stream list
+stream list
+app list
+app list

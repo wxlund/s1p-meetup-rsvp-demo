@@ -1,18 +1,22 @@
 //tag::ref-doc[]
-= Twitter Stream Source
+= Meetup RSVP STream
 
-This source ingests data from Twitter's https://dev.twitter.com/docs/streaming-apis/streams/public[streaming API v1.1]. It uses the https://dev.twitter.com/docs/streaming-apis/streams/public[sample and filter] stream endpoints rather than the full "firehose" which needs special access. The endpoint used will depend on the parameters you supply in the stream definition (some are specific to the filter endpoint).
+This source ingests data from Meetup RSVP's stream at http://stream.meetup.com/2/rsvps.
+It uses the https://www.meetup.com/meetup_api/docs/rsvp/ for documenting the API.
+See the docs for the list of parameters that can be passed. Currently the full stream without
+parameters is being passed in.
 
 You need to supply all keys and secrets (both consumer and accessToken) to authenticate for this source, so it is easiest if you just add these as the following environment variables: CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN and ACCESS_TOKEN_SECRET.
 
 == Options
 
-The **$$twitterstream$$** $$source$$ has the following options:
+curl https://api.meetup.com/rsvp/
+   -F 'event_id=12345'
+   -F 'rsvp=yes'
+   -F 'key=YOURKEY'
 
-//tag::configuration-properties[]
-//end::configuration-properties[]
 
-NOTE: `twitterstream` emit JSON in the https://dev.twitter.com/docs/platform-objects/tweets[native Twitter format].
+NOTE: `meetup-rsvp` emits JSON, There is much more to the API than we have time to explore in this demo.
 
 //end::ref-doc[]
 == Build

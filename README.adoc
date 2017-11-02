@@ -63,3 +63,5 @@ then after executing shell script you can view the results with:
 
 select * from meetups limit 10;
 
+dataflow stream creation is
+>stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy

@@ -31,7 +31,7 @@ class MeetupRsvpStreamMessageProducer extends AbstractMeetupRsvpInboundChannelAd
     @Autowired
     Environment environment;
 
-    private final String API_URL_BASE = "http://stream.meetup.com/2/rsvps";
+    private final String API_URL_BASE = "http://stream.meetup.com/2/open_events";
 
     private final MeetupRsvpStreamProperties meetupRsvpStreamProperties;
     private final RestTemplate restTemplate;

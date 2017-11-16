@@ -27,7 +27,7 @@ testPayloads.each() { payload ->
         description(jsonVenue.fee == null ? "UNKNOWN DESCRIPTION" : jsonVenue.description)
         duration(jsonVenue.venue == null ? 0.0 : jsonVenue.venue.lon)
         event_url(jsonVenue.event_url)
-        geo(jsonVenue.name)
+        geo((jsonVenue.venue == null ? null : jsonVenue.venue.lat) + ',' + (jsonVenue.venue == null ? null : jsonVenue.venue.lon))
         lat(jsonVenue.venue == null ? null : jsonVenue.venue.lat)
         lon(jsonVenue.venue == null ? null : jsonVenue.venue.lon)
         mtime(jsonVenue.time)

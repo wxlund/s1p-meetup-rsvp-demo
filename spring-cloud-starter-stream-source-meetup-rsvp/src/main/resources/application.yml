@@ -1,0 +1,22 @@
+meetup-url: http://stream.meetup.com/2/open_events
+session.executionRootDirectorysion: $PWD
+
+spring:
+  application:
+    name: spring-boot-meetup-service
+  data:
+    cassandra:
+      keyspace-name: meetups
+      contactpoints: localhost
+      user: cassandra
+      pword: cassandra
+
+---
+spring:
+  profiles: cloud
+  data:
+    cassandra:
+      contactpoints: ${vcap.services.cassandra.credentials.node_ips[0]}
+      user: ${vcap.services.cassandra.credentials.username}
+      pword: ${vcap.services.cassandra.credentials.password}
+      keyspace-name: meetups

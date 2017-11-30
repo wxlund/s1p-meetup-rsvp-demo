@@ -1,5 +1,5 @@
 meetup-url: http://stream.meetup.com/2/open_events
-session.executionRootDirectorysion: $PWD
+session.executionRootDirectory: $PWD
 
 spring:
   application:

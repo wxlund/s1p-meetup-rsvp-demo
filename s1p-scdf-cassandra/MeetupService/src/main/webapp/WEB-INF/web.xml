@@ -1,0 +1,37 @@
+
+    <web-app  version="3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://java.sun.com/xml/ns/javaee"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+              id="S1P_ID">
+    <display-name>Restful Web Application</display-name>
+
+    <servlet>
+        <servlet-name>S1P-jersey-serlvet</servlet-name>
+        <servlet-class>
+            com.sun.jersey.spi.container.servlet.ServletContainer
+        </servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>com.datastax.springone.services.meetup</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>S1P-jersey-serlvet</servlet-name>
+        <url-pattern>/rest/*</url-pattern>
+    </servlet-mapping>
+        <context-param>
+            <param-name>dseip</param-name>
+            <param-value>129.146.76.163</param-value>
+        </context-param>
+        <context-param>
+            <param-name>dsepword</param-name>
+            <param-value>datastax1!</param-value>
+        </context-param>
+        <context-param>
+            <param-name>dsekeyspace</param-name>
+            <param-value>meetups</param-value>
+        </context-param>
+
+</web-app>

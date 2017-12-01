@@ -1,0 +1,3 @@
+[submodule "SpringBootMeetupService"]
+	path = SpringBootMeetupService
+	url = https://github.com/wxlund/SpringBootMeetupService.git

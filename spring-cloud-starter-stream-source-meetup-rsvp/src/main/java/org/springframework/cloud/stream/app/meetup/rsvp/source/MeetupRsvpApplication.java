@@ -6,7 +6,14 @@ import org.springframework.context.annotation.Bean;
 
 import java.net.URI;
 import java.util.concurrent.atomic.AtomicReference;
-
+/**
+ * MeetupRsvp main class cloned from Twitterstream sample
+ *
+ * @author David Turanski
+ * @author Gary Russell
+ * @author Artem Bilan
+ * @author Wayne Lund
+ */
 @SpringBootApplication
 public class MeetupRsvpApplication {
 

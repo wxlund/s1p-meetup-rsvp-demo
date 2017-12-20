@@ -25,6 +25,8 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Ilayaperumal Gopinathan
  * @author Gary Russell
+ * @author Wayne Lund
+ * Renamed the class from TwitterStream to MeetupRsvp and changed the API_URL_BASE
  */
 class MeetupRsvpStreamMessageProducer extends AbstractMeetupRsvpInboundChannelAdapter {
 

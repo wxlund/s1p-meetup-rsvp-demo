@@ -19,10 +19,13 @@ package org.springframework.cloud.stream.app.meetup.rsvp.source;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Configuration properties for Twitterstream source.
+ * Configuration properties for MeetupRsvp source.
  *
  * @author Ilayaperumal Gopinathan
  * @author Gary Russell
+ * @author Wayne Lund
+ *
+ *
  */
 @ConfigurationProperties("meetup.stream")
 public class MeetupRsvpStreamProperties {

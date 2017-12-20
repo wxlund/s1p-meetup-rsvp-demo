@@ -16,10 +16,12 @@
 package org.springframework.cloud.stream.app.meetup.rsvp.source;
 
 /**
- * Twitter stream types.
+ * Cloned from Twitter stream types.
+ * Probably not necessary for meetup-rsvp.
  *
  * @author Ilayaperumal Gopinathan
  * @author Gary Russell
+ * @author Wayne Lund
  */
 public enum MeetupRsvpStreamType {
 	//TODO: Support more stream types such as `filter`, `search` that TwitterTemplate implementation supports.

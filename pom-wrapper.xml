@@ -1,35 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.springframework.cloud.stream.app</groupId>
-    <artifactId>meetup-rsvp-app-dependencies</artifactId>
-    <version>1.2.1.BUILD-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <name>meetup-rsvp-app-dependencies</name>
-    <description>Spring Cloud Stream MeetupRsvpApp Dependencies</description>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>meetup-rsvp-app-starters-build</artifactId>
+	<version>1.2.1.BUILD-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
-    <parent>
-	<artifactId>spring-cloud-dependencies-parent</artifactId>
-        <groupId>org.springframework.cloud</groupId>
-        <version>1.2.1.RELEASE</version>
-        <relativePath />
-    </parent>
+	<parent>
+		<groupId>org.springframework.cloud.stream.app</groupId>
+		<artifactId>app-starters-build</artifactId>
+		<version>1.2.1.BUILD-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud.stream.app</groupId>
-                <artifactId>spring-cloud-starter-stream-source-meetup-rsvp</artifactId>
+	<modules>
+		<module>spring-cloud-starter-stream-source-meetup-rsvp</module>
+		<module>meetup-rsvp-app-dependencies</module>
+		<module>meetup-rsvp-app-starters-test-support</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud.stream.app</groupId>
+				<artifactId>meetup-rsvp-app-dependencies</artifactId>
 				<version>1.2.6.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud.stream.app</groupId>
-                <artifactId>meetup-rsvp-app-starters-test-support</artifactId>
-                <version>1.2.6.RELEASE</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+  <build>
+    <!-- other build elements -->
+    <plugins>
+      <!-- ADD A REFERENCE TO THE MAVEN WRAPPER PLUGIN -->
+      <plugin>
+        <groupId>com.rimerosolutions.maven.plugins</groupId>
+        <artifactId>wrapper-maven-plugin</artifactId>
+        <version>0.0.5-SNAPSHOT</version>
+        <configuration>
+	    <!-- optional base distribution url --> 
+         <baseDistributionUrl>https://repository.apache.org/content/repositories/releases/org/apache/maven/apache-maven</baseDistributionUrl>
+         <!-- optional wrapper jar output folder -->
+          <wrapperDirectory>${basedir}/maven</wrapperDirectory>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <!-- 
+  ADD A REFERENCE TO THE SONATYPE SNAPSHOTS REPOSITORY if you want to use snapshots
+  -->
+  <pluginRepositories>
+    <pluginRepository>
+      <id>sonatype.snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
 <profiles>
 		<profile>
 			<id>spring</id>
@@ -92,8 +121,11 @@
 						<enabled>false</enabled>
 					</snapshots>
 				</pluginRepository>
+				<pluginRepository>
+				  <id>sonatype.snapshots</id>
+				  <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+				</pluginRepository>
 			</pluginRepositories>
 		</profile>
 	</profiles>
-
 </project>

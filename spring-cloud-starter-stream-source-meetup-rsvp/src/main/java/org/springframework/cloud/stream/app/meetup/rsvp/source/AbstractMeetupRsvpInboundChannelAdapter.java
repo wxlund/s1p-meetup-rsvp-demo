@@ -36,13 +36,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
- * Abstract class for the twitter inbound channel adapter.
+ * Abstract class for the meetup-rsvp inbound channel adapter.
  *
  * @author David Turanski
  * @author Gary Russell
  * @author Artem Bilan
+ * @author Wayne Lund
  */
-//TODO: Move this class to a common twitter support subproject
+//TODO: Only action done here was to rename the class to MeetupRsvp
 
 	@Component
 public abstract class AbstractMeetupRsvpInboundChannelAdapter extends MessageProducerSupport {
@@ -58,7 +59,7 @@ public abstract class AbstractMeetupRsvpInboundChannelAdapter extends MessagePro
 
 	private final AtomicBoolean running = new AtomicBoolean(false);
 
-	// BackOff values, as per https://dev.twitter.com/docs/streaming-apis/connecting#Reconnecting
+	// BackOff values
 	private final AtomicInteger linearBackOff = new AtomicInteger(250);
 
 	private final AtomicInteger httpErrorBackOff = new AtomicInteger(5000);
@@ -70,7 +71,7 @@ public abstract class AbstractMeetupRsvpInboundChannelAdapter extends MessagePro
 
 	protected AbstractMeetupRsvpInboundChannelAdapter(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
-		// Fix to get round TwitterErrorHandler not handling 401s etc.
+		// Fix to get round ErrorHandler not handling 401s etc.
 		restTemplate.setErrorHandler(new DefaultResponseErrorHandler());
 		this.setPhase(Integer.MAX_VALUE);
 	}

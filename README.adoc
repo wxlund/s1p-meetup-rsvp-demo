@@ -16,10 +16,10 @@ meetup-url = http://stream.meetup.com/2/rsvps
 session.executionRootDirectorysion=$PWD
 
 #TODO working on RT analytics for dashboard analytics
-#twitter.stream.language
-#The language of the tweet text. (String, default: <none>)
+#meetup-rsvp.stream.language
+#The language of the meetup records. (String, default: <none>)
 
-#twitter.stream.stream-type
+#meetup-rsvp.stream.stream-type
 #Meetup-RSVP stream type (such as sample, firehose). Default is sample. (Meetup-RSVPStreamType, default: <none>, possible values: SAMPLE,FIREHOSE)
 
 Note

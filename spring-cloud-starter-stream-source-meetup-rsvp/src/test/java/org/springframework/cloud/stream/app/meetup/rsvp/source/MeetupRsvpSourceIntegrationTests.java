@@ -37,7 +37,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for twitter stream source app.
+ * Tests for meetup-rsvp stream source app.
  *
  * @author Gary Russell
  */

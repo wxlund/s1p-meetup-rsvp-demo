@@ -1,5 +1,5 @@
 //tag::ref-doc[]
-= Meetup RSVP STream
+= Meetup RSVP Stream
 
 This source ingests data from Meetup RSVP's stream at http://stream.meetup.com/2/rsvps.
 It uses the https://www.meetup.com/meetup_api/docs/rsvp/ for documenting the API.

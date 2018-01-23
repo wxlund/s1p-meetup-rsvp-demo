@@ -77,7 +77,7 @@ public abstract class AbstractMeetupRsvpInboundChannelAdapter extends MessagePro
 	}
 
 	/**
-	 * The read timeout for the underlying URLConnection to the twitter stream.
+	 * The read timeout for the underlying URLConnection to the meetup rsvp stream.
 	 */
 	public void setReadTimeout(int millis) {
 		// Hack to get round Spring's dynamic loading of http client stuff
@@ -91,7 +91,7 @@ public abstract class AbstractMeetupRsvpInboundChannelAdapter extends MessagePro
 	}
 
 	/**
-	 * The connection timeout for making a connection to Twitter.
+	 * The connection timeout for making a connection to Meetup RSVP
 	 */
 	public void setConnectTimeout(int millis) {
 		ClientHttpRequestFactory f = getRequestFactory();

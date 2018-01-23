@@ -1548,3 +1548,2191 @@ stream list
 stream list
 app list
 app list
+// dataflow 1.2.0.RELEASE log opened at 2018-01-18 15:17:17
+app list
+stream list
+stream deploy csql
+stream list
+// [failed] field-value-counter display --name venue
+// [failed] field-value-counter display --name venue
+// [failed] field-value-counter display --name cities
+stream destroy cities
+stream destroy venue
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp  | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetups(id, rsvp_id, venue_name) values (uuid(), ?, ?)' --keyspace=meetup " --deploy
+stream create venue-name --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue_name.text --name=venue --store=redis" --deploy
+stream list
+// [failed] stream destroy meetups
+stream destroy meetups-aggregate-counter
+quit
+// dataflow 1.2.0.RELEASE log closed at 2018-01-22 11:43:53
+dataflow config server http://wlund-dataflow-server.cfapps.io/
+app list
+// [failed] script --file register-processor-modules.cmd
+app register --name bridge --type processor --uri maven://org.springframework.cloud.stream.app:bridge-processor:jar:exec:1.0.1.RELEASE
+app register --name filter --type processor --uri maven://org.springframework.cloud.stream.app:filter-processor:jar:exec:1.0.1.RELEASE
+app register --name groovy-filter --type processor --uri maven://org.springframework.cloud.stream.app:groovy-filter-processor:jar:exec:1.0.1.RELEASE
+app register --name groovy-transform --type processor --uri maven://org.springframework.cloud.stream.app:groovy-transform-processor:jar:exec:1.0.1.RELEASE
+app register --name httpclient --type processor --uri maven://org.springframework.cloud.stream.app:httpclient-processor:jar:exec:1.0.1.RELEASE
+app register --name pmml --type processor --uri maven://org.springframework.cloud.stream.app:pmml-processor:jar:exec:1.0.1.RELEASE
+app register --name splitter --type processor --uri maven://org.springframework.cloud.stream.app:splitter-processor:jar:exec:1.0.1.RELEASE
+app register --name transform --type processor --uri maven://org.springframework.cloud.stream.app:transform-processor:jar:exec:1.0.1.RELEASE
+// script --file register-processor-modules.cmd
+// [failed] script -file register-sink-modules.cmd
+! ls -la
+app register --name aggregate-counter --type sink --uri maven://org.springframework.cloud.stream.app:aggregate-counter-sink:jar:exec:1.0.1.RELEASE
+app register --name cassandra --type sink --uri maven://org.springframework.cloud.stream.app:cassandra-sink:jar:exec:1.0.1.RELEASE
+app register --name counter --type sink --uri maven://org.springframework.cloud.stream.app:counter-sink:jar:exec:1.0.1.RELEASE
+app register --name field-value-counter --type sink --uri maven://org.springframework.cloud.stream.app:field-value-counter-sink:jar:exec:1.0.1.RELEASE
+app register --name file --type sink --uri maven://org.springframework.cloud.stream.app:file-sink:jar:exec:1.0.1.RELEASE
+app register --name ftp --type sink --uri maven://org.springframework.cloud.stream.app:ftp-sink:jar:exec:1.0.1.RELEASE
+app register --name gemfire --type sink --uri maven://org.springframework.cloud.stream.app:gemfire-sink:jar:exec:1.0.1.RELEASE
+app register --name gpfdist --type sink --uri maven://org.springframework.cloud.stream.app:gpfdist-sink:jar:exec:1.0.1.RELEASE
+app register --name hdfs --type sink --uri maven://org.springframework.cloud.stream.app:hdfs-sink:jar:exec:1.0.1.RELEASE
+app register --name jdbc --type sink --uri maven://org.springframework.cloud.stream.app:jdbc-sink:jar:exec:1.0.1.RELEASE
+app register --name log --type sink --uri maven://org.springframework.cloud.stream.app:log-sink:jar:exec:1.0.1.RELEASE
+app register --name rabbit --type sink --uri maven://org.springframework.cloud.stream.app:rabbit-sink:jar:exec:1.0.1.RELEASE
+app register --name redis --type sink --uri maven://org.springframework.cloud.stream.app:redis-sink:jar:exec:1.0.1.RELEASE
+app register --name router --type sink --uri maven://org.springframework.cloud.stream.app:router-sink:jar:exec:1.0.1.RELEASE
+app register --name tcp --type sink --uri maven://org.springframework.cloud.stream.app:tcp-sink:jar:exec:1.0.1.RELEASE
+app register --name throughput --type sink --uri maven://org.springframework.cloud.stream.app:throughput-sink:jar:exec:1.0.1.RELEASE
+app register --name websocket --type sink --uri maven://org.springframework.cloud.stream.app:websocket-sink:jar:exec:1.0.1.RELEASE
+app register --name timestamp --type task --uri maven://org.springframework.cloud.task.app:timestamp-task:jar:exec:1.0.1.RELEASE
+// script --file register-sink-modules.cmd
+app register --name file --type source --uri maven://org.springframework.cloud.stream.app:file-source:jar:exec:1.0.1.RELEASE
+app register --name ftp --type source --uri maven://org.springframework.cloud.stream.app:ftp-source:jar:exec:1.0.1.RELEASE
+app register --name jdbc --type source --uri maven://org.springframework.cloud.stream.app:jdbc-source:jar:exec:1.0.1.RELEASE
+app register --name jms --type source  --uri maven://org.springframework.cloud.stream.app:jms-source:jar:exec:1.0.1.RELEASE
+app register --name http --type source --uri maven://org.springframework.cloud.stream.app:http-source:jar:exec:1.0.1.RELEASE
+app register --name load-generator --type source --uri maven://org.springframework.cloud.stream.app:load-generator-source:jar:exec:1.0.1.RELEASE
+app register --name rabbit --type source --uri maven://org.springframework.cloud.stream.app:rabbit-source:jar:exec:1.0.1.RELEASE
+app register --name sftp --type source --uri maven://org.springframework.cloud.stream.app:sftp-source:jar:exec:1.0.1.RELEASE
+app register --name tcp --type source --uri maven://org.springframework.cloud.stream.app:tcp-source:jar:exec:1.0.1.RELEASE
+app register --name time --type source --uri maven://org.springframework.cloud.stream.app:time-source:jar:exec:1.0.1.RELEASE
+app register --name trigger --type source --uri maven://org.springframework.cloud.stream.app:trigger-source:jar:exec:1.0.1.RELEASE
+app register --name twitterstream --type source --uri maven://org.springframework.cloud.stream.app:twitterstream-source:jar:exec:1.0.1.RELEASE
+// script --file register-source-modules.cmd
+app list
+// [failed] stream create luketicktock --definition "time | log" --deploy
+// dataflow 1.2.0.RELEASE log opened at 2016-11-07 14:03:14
+dataflow config server http://wlund-dataflow-server.cfapps.io/
+app list
+! ls -la
+app register --name bridge --type processor --uri maven://org.springframework.cloud.stream.app:bridge-processor:jar:exec:1.0.1.RELEASE
+app register --name filter --type processor --uri maven://org.springframework.cloud.stream.app:filter-processor:jar:exec:1.0.1.RELEASE
+app register --name groovy-filter --type processor --uri maven://org.springframework.cloud.stream.app:groovy-filter-processor:jar:exec:1.0.1.RELEASE
+app register --name groovy-transform --type processor --uri maven://org.springframework.cloud.stream.app:groovy-transform-processor:jar:exec:1.0.1.RELEASE
+app register --name httpclient --type processor --uri maven://org.springframework.cloud.stream.app:httpclient-processor:jar:exec:1.0.1.RELEASE
+app register --name pmml --type processor --uri maven://org.springframework.cloud.stream.app:pmml-processor:jar:exec:1.0.1.RELEASE
+app register --name splitter --type processor --uri maven://org.springframework.cloud.stream.app:splitter-processor:jar:exec:1.0.1.RELEASE
+app register --name transform --type processor --uri maven://org.springframework.cloud.stream.app:transform-processor:jar:exec:1.0.1.RELEASE
+// script --file register-processor-apps.cmd
+app register --name aggregate-counter --type sink --uri maven://org.springframework.cloud.stream.app:aggregate-counter-sink:jar:exec:1.0.1.RELEASE
+app register --name cassandra --type sink --uri maven://org.springframework.cloud.stream.app:cassandra-sink:jar:exec:1.0.1.RELEASE
+app register --name counter --type sink --uri maven://org.springframework.cloud.stream.app:counter-sink:jar:exec:1.0.1.RELEASE
+app register --name field-value-counter --type sink --uri maven://org.springframework.cloud.stream.app:field-value-counter-sink:jar:exec:1.0.1.RELEASE
+app register --name file --type sink --uri maven://org.springframework.cloud.stream.app:file-sink:jar:exec:1.0.1.RELEASE
+app register --name ftp --type sink --uri maven://org.springframework.cloud.stream.app:ftp-sink:jar:exec:1.0.1.RELEASE
+app register --name gemfire --type sink --uri maven://org.springframework.cloud.stream.app:gemfire-sink:jar:exec:1.0.1.RELEASE
+app register --name gpfdist --type sink --uri maven://org.springframework.cloud.stream.app:gpfdist-sink:jar:exec:1.0.1.RELEASE
+app register --name hdfs --type sink --uri maven://org.springframework.cloud.stream.app:hdfs-sink:jar:exec:1.0.1.RELEASE
+app register --name jdbc --type sink --uri maven://org.springframework.cloud.stream.app:jdbc-sink:jar:exec:1.0.1.RELEASE
+app register --name log --type sink --uri maven://org.springframework.cloud.stream.app:log-sink:jar:exec:1.0.1.RELEASE
+app register --name rabbit --type sink --uri maven://org.springframework.cloud.stream.app:rabbit-sink:jar:exec:1.0.1.RELEASE
+app register --name redis --type sink --uri maven://org.springframework.cloud.stream.app:redis-sink:jar:exec:1.0.1.RELEASE
+app register --name router --type sink --uri maven://org.springframework.cloud.stream.app:router-sink:jar:exec:1.0.1.RELEASE
+app register --name tcp --type sink --uri maven://org.springframework.cloud.stream.app:tcp-sink:jar:exec:1.0.1.RELEASE
+app register --name throughput --type sink --uri maven://org.springframework.cloud.stream.app:throughput-sink:jar:exec:1.0.1.RELEASE
+app register --name websocket --type sink --uri maven://org.springframework.cloud.stream.app:websocket-sink:jar:exec:1.0.1.RELEASE
+app register --name timestamp --type task --uri maven://org.springframework.cloud.task.app:timestamp-task:jar:exec:1.0.1.RELEASE
+// script --file register-sink-apps.cmd
+app register --name file --type source --uri maven://org.springframework.cloud.stream.app:file-source:jar:exec:1.0.1.RELEASE
+app register --name ftp --type source --uri maven://org.springframework.cloud.stream.app:ftp-source:jar:exec:1.0.1.RELEASE
+app register --name jdbc --type source --uri maven://org.springframework.cloud.stream.app:jdbc-source:jar:exec:1.0.1.RELEASE
+app register --name jms --type source  --uri maven://org.springframework.cloud.stream.app:jms-source:jar:exec:1.0.1.RELEASE
+app register --name http --type source --uri maven://org.springframework.cloud.stream.app:http-source:jar:exec:1.0.1.RELEASE
+app register --name load-generator --type source --uri maven://org.springframework.cloud.stream.app:load-generator-source:jar:exec:1.0.1.RELEASE
+app register --name rabbit --type source --uri maven://org.springframework.cloud.stream.app:rabbit-source:jar:exec:1.0.1.RELEASE
+app register --name sftp --type source --uri maven://org.springframework.cloud.stream.app:sftp-source:jar:exec:1.0.1.RELEASE
+app register --name tcp --type source --uri maven://org.springframework.cloud.stream.app:tcp-source:jar:exec:1.0.1.RELEASE
+app register --name time --type source --uri maven://org.springframework.cloud.stream.app:time-source:jar:exec:1.0.1.RELEASE
+app register --name trigger --type source --uri maven://org.springframework.cloud.stream.app:trigger-source:jar:exec:1.0.1.RELEASE
+app register --name twitterstream --type source --uri maven://org.springframework.cloud.stream.app:twitterstream-source:jar:exec:1.0.1.RELEASE
+// script --file register-source-apps.cmd
+app list
+// [failed] stream create luketicktock --definition "time | log" --deploy
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven --force
+app list
+// [failed] stream create luketicktock --definition "time | log" --deploy
+stream destroy luketicktock
+stream create luketicktock --definition "time | log" --deploy
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-07 14:20:05
+// dataflow 1.2.0.RELEASE log opened at 2016-11-08 09:29:46
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+app list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app list
+// dataflow 1.2.0.RELEASE log opened at 2016-11-08 15:41:40
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+// [failed] app register --name jdbc-gemfire-task --type task --uri file:///[local-git-repo]/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/jdbc-gemfire-task-1.3.7.RELEASE.jar --force
+app register --name jdbc-gemfire-task --type task --uri file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/jdbc-gemfire-task-1.3.7.RELEASE.jar --force
+app list
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://localhost:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author
+// [failed] task launch pubs-author
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-1
+// [failed] task launch pubs-author-1
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-3
+// [failed] task launch pubs-author-3
+// [failed] task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver ----jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-4
+// [failed] task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-4
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-4
+// [failed] task launch pubs-author-4
+// [failed] task launch pubs-author-4
+app register --name jdbc-gemfire-task --type task --uri file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/jdbc-gemfire-task-1.3.7.RELEASE.jar --force
+task list
+app list
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-5
+// [failed] task launch pubs-author-5
+! file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/*
+! ll file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/*
+! ls file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/*
+! ls -la file:///Users/wlund/Dropbox/wxlund/jdbc-gemfire-samples/dataflow/task/jdbc-gemfire-task/target/*
+app register --name jdbc-gemfire-task --type task --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-6
+// [failed] task launch pubs-author-6
+! ll /Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/*
+! ls -la /Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/*
+app register --name jdbc-gemfire-task --type task --uri file://Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://192.168.11.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-7
+// [failed] task launch pubs-author-7
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-8
+// [failed] task launch pubs-author-8
+app register --name jdbc-gemfire-task --type task --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+app register --name jdbc-gemfire-task --type task --uri https://www.dropbox.com/home/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-9
+app register --name jdbc-gemfire-task --type task --uri file:///Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+app register --name jdbc-gemfire-task --type task --uri file://host.pcfdev.io/Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-10
+// [failed] task launch pubs-author-10
+// [failed] task launch pubs-author-10
+app register --name jdbc-gemfire-task --type task --uri file:///host.pcfdev.io/Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-11
+// [failed] task launch pubs-author-11
+app register --name jdbc-gemfire-task --type task --uri file://host.pcfdev.io/Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-12
+// [failed] task launch pubs-author-12
+app register --name jdbc-gemfire-task --type task --uri file://host.pcfdev.io/Users/wlund/Dropbox/git-workspace/wxlund/jdbc-gemfire-samples/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=postgres --jdbcgemfire.datasource.url=jdbc:postgresql://10.0.0.45.1:5432/postgres --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.locators=10.0.0.45:10334 --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-13
+// [failed] task launch pubs-author-13
+stream create luketicktock --definition "time | log" --deploy
+app list
+stream create ticktock --definition 'time | log'
+stream deploy ticktock
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+app import --uri http://bit.ly/stream-applications-rabbit-maven --force
+stream create luketicktock --definition "time | log" --deploy
+stream deploy luketicktock
+stream list
+// [failed] stream deploy tickktock
+stream deploy ticktock
+stream list
+stream list
+stream list
+app import --uri http://bit.ly/stream-applications-rabbit-maven
+app list
+stream destroy ticktock
+stream list
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+app list
+app import --uri http://bit.ly/stream-applications-rabbit-maven
+app list
+stream create --name ticktock --definition "time | log" --deploy
+stream create --name httptest --definition "http --server.port=9000 | log" --deploy
+stream list
+task list
+task list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-10 09:35:33
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 09:43:41
+dataflow config server http://wlund-dataflow-server.local.pcfdev.io
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-10 09:43:53
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 09:47:19
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+app list
+app import --uri http://bit.ly/stream-applications-rabbit-maven
+app list
+// [failed] stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream deploy ticktock
+stream list
+stream destroy ticktock
+stream list
+stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream list
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+stream list
+stream create --name ticktock --definition "time | log" --deploy
+stream deploy ticktock
+stream list
+stream deploy ticktock
+stream list
+stream list
+stream destroy ticktock
+stream list
+stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream deploy ticktock
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 10:18:34
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+app list
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 10:25:36
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+app list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app list
+stream list
+stream deploy ticktock
+stream list
+app list
+app import --uri http://bit.ly/stream-applications-rabbit-maven
+app list
+stream list
+stream deploy ticktock
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 14:37:15
+dataflow config server http://wlund-dataflow-server.cfapps.io
+app list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true
+stream list
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true
+// [failed] app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true
+app register --name curration-processor --type processor --uri https://github.com/zhansen-pivotal/lambda/blob/master/pcf-demo/curration-processor/target/curration-processor-0.0.1-SNAPSHOT.jar?raw=true --force
+stream list
+version
+exit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-10 15:11:22
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 15:11:32
+dataflow config server http://wlund-dataflow-server.cfapps.io
+app register --name curration-processor --type processor --uri https://github.com/zhansen-pivotal/lambda/blob/master/pcf-demo/curration-processor/target/curration-processor-0.0.1-SNAPSHOT.jar?raw=true --force
+// [failed] app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://wlund-pivotal:WWoodruff03github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://wlund-pivotal:WWoodruff03@github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-10 15:49:07
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 15:49:17
+dataflow config server http://wlund-dataflow-server.cfapps.io
+task list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+task list
+app list
+task list
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=ghvnicss --jdbcgemfire.datasource.url=jdbc:postgres://ghvnicss:q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw@elmer.db.elephantsql.com:5432/ghvnicss --jdbcgemfire.locators=ec2-54-203-10-13.us-west-2.compute.amazonaws.com:10334 --jdbcgemfire.datasource.password=q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author
+task list
+// [failed] task launch pubs-author
+// dataflow 1.2.0.RELEASE log opened at 2016-11-10 16:30:50
+dataflow config server http://wlund-dataflow-server.cfapps.io
+app list
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=ghvnicss --jdbcgemfire.datasource.url=jdbc:postgres://ghvnicss:q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw@elmer.db.elephantsql.com:5432/ghvnicss --jdbcgemfire.locators=172.31.34.171:10334 --jdbcgemfire.datasource.password=q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-1
+// [failed] task launch pubs-author-1
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=ghvnicss --jdbcgemfire.datasource.url=jdbc:postgres://ghvnicss:q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw@elmer.db.elephantsql.com:5432/ghvnicss --jdbcgemfire.locators=172.31.34.171:10334 --jdbcgemfire.datasource.password=q7kDhTNdhMrYri3g8i4wFpEgkhCA7LQw --jdbcgemfire.datasource.driver-class-name=org.postgresql.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author-2
+// [failed] task launch pubs-author-2
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-10 16:37:00
+// dataflow 1.2.0.RELEASE log opened at 2016-11-14 14:24:55
+dataflow config server http://wlund-dataflow-server.cfapps.io
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app list
+task list
+app unregister jdbc-gemfire-task --type task
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar?raw=true --force
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-11-18 09:37:14
+// dataflow 1.2.0.RELEASE log opened at 2016-11-23 11:38:26
+dataflow config server http://df-server.cfapps.pez.pivotal.io
+app list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/master/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+app list
+dataflow config server http://df-server.cfapps.pez.pivotal.io
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/pez/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+// dataflow 1.2.0.RELEASE log opened at 2016-12-01 14:48:13
+dataflow config server http://df-server.cfapps.pez.pivotal.io
+app list
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/pez/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=nZ8956ND91huf9va --jdbcgemfire.datasource.url=jdbc:mysql://192.168.8.210:3306/cf_9141bc13_55b2_4b2f_99d2_f07f68d77ce0?user=nZ8956ND91huf9va\u0026password=RFIMkqyjv0rwvXuu --jdbcgemfire.datasource.password=RFIMkqyjv0rwvXuu --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author
+// dataflow 1.2.0.RELEASE log opened at 2016-12-02 11:12:41
+dataflow config server http://df-server.cfapps.pez.pivotal.io
+app list
+task list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/pez/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+clear
+task list
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=nZ8956ND91huf9va --jdbcgemfire.datasource.url=jdbc:mysql://192.168.8.210:3306/cf_9141bc13_55b2_4b2f_99d2_f07f68d77ce0?user=nZ8956ND91huf9va\u0026password=RFIMkqyjv0rwvXuu --jdbcgemfire.datasource.password=RFIMkqyjv0rwvXuu --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author1
+// [failed] task launch --name pubs-author2 --properties "app.jdbc-gemfire-task.spring.cloud.deployer.cloudfoundry.services=gemfire"
+// dataflow 1.2.0.RELEASE log opened at 2016-12-05 14:34:49
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/pez/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+app info task:jdbc-gemfire-task
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/pez/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+! export SPRING_CLOUD_DATAFLOW_FEATURES_EXPERIMENTAL_TASKSENABLED=true
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-12-05 15:57:01
+// dataflow 1.2.0.RELEASE log opened at 2016-12-05 15:57:22
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=nZ8956ND91huf9va --jdbcgemfire.datasource.url=jdbc:mysql://192.168.8.210:3306/cf_9141bc13_55b2_4b2f_99d2_f07f68d77ce0?user=nZ8956ND91huf9va\u0026password=RFIMkqyjv0rwvXuu --jdbcgemfire.datasource.password=RFIMkqyjv0rwvXuu --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author5
+task launch pubs-author5
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=nZ8956ND91huf9va --jdbcgemfire.datasource.url=jdbc:mysql://192.168.8.210:3306/cf_9141bc13_55b2_4b2f_99d2_f07f68d77ce0?user=nZ8956ND91huf9va\u0026password=RFIMkqyjv0rwvXuu --jdbcgemfire.datasource.password=RFIMkqyjv0rwvXuu --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author6
+task launch pubs-author6
+task list
+// dataflow 1.2.0.RELEASE log opened at 2016-12-06 11:29:23
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+app list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/pez/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+// dataflow 1.2.0.RELEASE log opened at 2016-12-08 08:35:35
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+task list
+app import http://bit.ly/1-0-4-GA-stream-applications-rabbit-maven
+app register --name jdbc-gemfire-task  --type task --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/pez/jdbc-gemfire-task/target/jdbc-gemfire-task-1.0.jar --force
+task list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2016-12-08 08:38:23
+task list
+app list
+// [failed] task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=qsuFgGB1nYIZMP5g --jdbcgemfire.datasource.url="jdbc:mysql://mysql-broker.local.pcfdev.io:3306/cf_3c1748e5_c4e4_42b3_942f_3f0f10df084a?user=qsuFgGB1nYIZMP5g\u0026password=nGXJsCH9ejXFpiqd --jdbcgemfire.datasource.password=nGXJsCH9ejXFpiqd --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author
+// [failed] task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=qsuFgGB1nYIZMP5g --jdbcgemfire.datasource.url="jdbc:mysql://mysql-broker.local.pcfdev.io:3306/cf_3c1748e5_c4e4_42b3_942f_3f0f10df084a --jdbcgemfire.datasource.password=nGXJsCH9ejXFpiqd --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author
+// [failed] task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=qsuFgGB1nYIZMP5g --jdbcgemfire.datasource.url="jdbc:mysql://mysql-broker.local.pcfdev.io:3306/cf_3c1748e5_c4e4_42b3_942f_3f0f10df084a --jdbcgemfire.datasource.password=nGXJsCH9ejXFpiqd --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author'
+// [failed] task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=qsuFgGB1nYIZMP5g --jdbcgemfire.datasource.url="jdbc:mysql://mysql-broker.local.pcfdev.io:3306/cf_3c1748e5_c4e4_42b3_942f_3f0f10df084a --jdbcgemfire.datasource.password=nGXJsCH9ejXFpiqd --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author
+// [failed] task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=qsuFgGB1nYIZMP5g --jdbcgemfire.datasource.url="jdbc:mysql://mysql-broker.local.pcfdev.io:3306/cf_3c1748e5_c4e4_42b3_942f_3f0f10df084a --jdbcgemfire.datasource.password=nGXJsCH9ejXFpiqd --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author'
+// [failed] task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=qsuFgGB1nYIZMP5g --jdbcgemfire.datasource.url="jdbc:mysql://mysql-broker.local.pcfdev.io:3306/cf_3c1748e5_c4e4_42b3_942f_3f0f10df084a" --jdbcgemfire.datasource.password=nGXJsCH9ejXFpiqd --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author'
+task create --definition 'jdbc-gemfire-task --jdbcgemfire.datasource.username=qsuFgGB1nYIZMP5g --jdbcgemfire.datasource.url="jdbc:mysql://mysql-broker.local.pcfdev.io:3306/cf_3c1748e5_c4e4_42b3_942f_3f0f10df084a" --jdbcgemfire.datasource.password=nGXJsCH9ejXFpiqd --jdbcgemfire.datasource.driver-class-name=com.mysql.jdbc.Driver --jdbcgemfire.region-name=Author --jdbcgemfire.commit-interval=1000 --jdbcgemfire.sql="select * from authors"' --name pubs-author
+task list
+task launch pubs-author
+task list
+// dataflow 1.2.0.RELEASE log opened at 2016-12-08 11:51:23
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+app list
+task list
+stream list
+app list
+stream list
+stream destroy jdbc2gemfire
+dataflow config server http://admin-dataflow-server.local.pcfdev.io
+app register --name gemfire-dozer  --type sink --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/raw/pcfdev/gemfire-sink-proto/target/gemfire-sink-proto-0.0.9-SNAPSHOT.jar --force
+app list
+stream list
+app register --name groovy-transform-processor  --type processor --uri https://github.com/Pivotal-Field-Engineering/jdbc-gemfire-samples/blob/pcfdev/groovy-transform-processor-rabbit/target/groovy-transform-processor-rabbit-1.0.3.BUILD-SNAPSHOT.jar?raw=true --force
+// [failed] app unregister processor:groovy-transform-processor
+app unregister groovy-transform-processor:processor
+stream list
+stream list
+stream list
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2017-01-12 14:41:16
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-kafka-10-maven
+app list
+stream create ticktock --definition "time | log" --deploy
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-16 15:54:13
+// dataflow 1.2.0.RELEASE log opened at 2017-01-16 15:55:23
+app list
+app list
+stream list
+stream create --definition ":meetup-rsvp-stream > counter" --name tap_at_venue --deploy
+stream deploy meetup-rsvp-stream
+stream list
+// [failed] stream create --definition ":meetup-rsvp-stream > counter" --name tap_at_venue --deploy
+stream deploy tap_at_venue
+stream list
+stream destroy meetup-rsvp-stream
+stream destroy tap_at_venue
+stream create --definition "http --port=7080 --http.path-pattern=http://stream.meetup.com/2/rsvps | log" --name meetup-rsvp
+app list
+stream list
+stream deploy meetup-rsvp
+stream list
+stream list
+stream list
+stream create --definition "http --server.port=8888 --spring.cloud.stream.bindings.output.contentType='application/json' | log" --name rsvps
+stream list
+// [failed] stream destroy meetup-revp
+// [failed] stream destroy meetup-revps
+stream destroy meetup-rsvp
+stream list
+stream deploy rsvps
+stream list
+stream list
+stream list
+app list
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2017-01-16 16:42:28
+app list
+app list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-17 07:07:39
+// dataflow 1.2.0.RELEASE log opened at 2017-01-17 15:14:08
+app list
+stream list
+exit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-23 14:28:28
+// dataflow 1.2.0.RELEASE log opened at 2017-01-26 08:21:08
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-26 08:22:36
+// dataflow 1.2.0.RELEASE log opened at 2017-01-26 08:22:45
+dataflow config server http://spring-dataflow-server.cfapps.io
+app list
+app import --uri https://bit.ly/Avogadro-SR1-stream-applications-rabbit-maven --force
+app import --uri https://bit.ly/Avogadro-GA-stream-applications-rabbit-maven --force
+// [failed] app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-10-maven
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-maven
+app list
+// [failed] stream create foo --definition "trigger --fixed-delay=1 | httpclient --url-expression='''https://testredis-nonsensualistic-battler.cfapps.io/''' --httpMethod=GET | log" --deploy
+stream list
+app list
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-maven --force
+stream destroy foo
+stream list
+stream destroy tr
+stream destroy tredis
+stream list
+stream create foo --definition "trigger --fixed-delay=1 | httpclient --url-expression='''https://testredis-nonsensualistic-battler.cfapps.io/''' --httpMethod=GET | log" --deploy
+app list
+stream list
+app list
+stream list
+stream list
+app list
+stream list
+stream destroy foo
+stream list
+stream create foo --definition "trigger --fixed-delay=1 | httpclient --url-expression='''https://testredis-nonsensualistic-battler.cfapps.io/''' --httpMethod=GET | log" --deploy
+stream list
+stream deploy foo
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-26 14:20:16
+// dataflow 1.2.0.RELEASE log opened at 2017-01-26 14:20:24
+app list
+app import --uri https://bit.ly/Avogadro-SR1-stream-applications-rabbit-maven --force
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-26 14:23:45
+// dataflow 1.2.0.RELEASE log opened at 2017-01-26 14:23:51
+app list
+app import --uri https://bit.ly/Avogadro-SR1-stream-applications-rabbit-maven --force
+app import --uri https://bit.ly/Avogadro-GA-stream-applications-rabbit-maven --force
+stream create foo --definition "trigger --fixed-delay=1 | httpclient --url-expression='''https://testredis-nonsensualistic-battler.cfapps.io/''' --httpMethod=GET | log" --deploy
+stream list
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-26 14:33:01
+// dataflow 1.2.0.RELEASE log opened at 2017-01-26 14:33:23
+// [failed] app import --uri https://bit.ly/Avogadro-GA-stream-applications-rabbit-maven --force
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-maven
+app list
+stream create foo --definition "trigger --fixed-delay=1 | httpclient --url-expression='https://testredis-nonsensualistic-battler.cfapps.io/' --httpMethod=GET | log" --deploy
+stream list
+stream destroy foo
+stream create foo --definition "trigger --fixed-delay=1 | httpclient --url-expression='''https://testredis-nonsensualistic-battler.cfapps.io/''' --httpMethod=GET | log" --deploy
+stream list
+stream undeploy foo
+app list
+stream list
+app register --name task-processor --type processor --uri maven://io.spring.cloud:taskprocessor:jar:1.1.0.BUILD-SNAPSHOT
+// [failed] app register --name task-launcher-local --type sink --uri maven://org.springframework.cloud.stream.app:task-launcher-local-sink-kafka:jar:1.0.2.RELEASE
+// [failed] stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream list
+stream create thumbnail --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream list
+app list
+stream list
+stream undeploy thumbnail
+stream deploy thumbnail
+stream list
+stream list
+stream list
+stream list
+stream list
+stream undeploy thumbnail
+stream deploy thumbnail
+app list
+stream list
+dataflow config server http://wlund-dataflow-server.cfapps.io
+dataflow config server https://wlund-dataflow-server.cfapps.io
+dataflow config server https://wlund-dataflow-server.cfapps.io/
+dataflow config server http://wlund-dataflow-server.cfapps.io/
+dataflow config server https://wlund-dataflow-server.cfapps.io
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-31 15:00:27
+// dataflow 1.2.0.RELEASE log opened at 2017-01-31 15:01:03
+dataflow config server https://wlund-dataflow-server.cfapps.io
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-31 15:01:57
+// dataflow 1.2.0.RELEASE log opened at 2017-01-31 15:05:13
+dataflow config server http://wlund-dataflow-server.cfapps.io
+dataflow config server https://wlund-dataflow-server.cfapps.io
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-31 15:05:55
+// dataflow 1.2.0.RELEASE log opened at 2017-01-31 15:09:54
+dataflow config server https://wlund-dataflow-server.cfapps.io
+stream create --definition "time | log" --name ticktock --deploy
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2017-01-31 15:18:01
+dataflow config server https://wlund-dataflow-server.cfapps.io
+// [failed] stream create --definition "time | log" --name ticktock --deploy
+stream list
+stream destroy ticktock
+stream create --definition "time | log" --name ticktock --deploy
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-01-31 15:19:08
+stream list
+stream list
+stream destroy ticktock
+stream create --definition "time | log" --name ticktock --deploy
+stream list
+stream list
+stream list
+stream undeploy ticktock
+stream deploy ticktock
+stream list
+stream list
+// [failed] stream undeploy ticcktock
+stream undeploy ticktock
+app register --name cl-time2 --type source --uri https://github.com/Pivotal-Field-Engineering/dataflow-config-server-apps/blob/master/cl-time/target/cl-time-0.0.1-SNAPSHOT.jar?raw=true --force
+app register --name cl-log2 --type sink --uri https://github.com/Pivotal-Field-Engineering/dataflow-config-server-apps/blob/master/cl-log/target/cl-log-0.0.1-SNAPSHOT.jar?raw=true --force
+// [failed] stream create --definition "cl-time2 | cl-log2" --name ticktock --deploy
+stream create --definition "cl-time2 | cl-log2" --name ticktock2 --deploy
+stream list
+stream list
+stream undeploy ticktock2
+stream all destroy
+// [failed] stream create --definition "t:cl-time2 | cl-log2" --name ticktock2 --deploy
+stream create --definition "t: cl-time2 | cl-log2" --name ticktock2 --deploy
+stream all destroy
+stream create --definition "t: cl-time2 | cl-log2" --name ticktock2 --deploy
+stream all destroy
+stream create --definition "t: cl-time2 | cl-log2" --name ticktock --deploy
+stream all destroy
+app register --name cl-time2 --type source --uri https://github.com/Pivotal-Field-Engineering/dataflow-config-server-apps/blob/master/cl-time/target/cl-time-0.0.1-SNAPSHOT.jar?raw=true --force
+app register --name cl-log2 --type sink --uri https://github.com/Pivotal-Field-Engineering/dataflow-config-server-apps/blob/master/cl-log/target/cl-log-0.0.1-SNAPSHOT.jar?raw=true --force
+stream create --definition "t: cl-time2 | cl-log2" --name ticktock --deploy
+app register --name cl-time3 --type source --uri https://github.com/Pivotal-Field-Engineering/dataflow-config-server-apps/blob/master/cl-time/target/cl-time-0.0.1-SNAPSHOT.jar?raw=true --force
+app register --name cl-log3e --type sink --uri https://github.com/Pivotal-Field-Engineering/dataflow-config-server-apps/blob/master/cl-log/target/cl-log-0.0.1-SNAPSHOT.jar?raw=true --force
+stream all destroy
+stream create --definition "t: cl-time3 | cl-log3e" --name ticktock --deploy
+stream undeploy --name ticktock
+// [failed] stream create --definition "t: cl-time3 | cl-log3e" --name ticktock --deploy
+stream deploy ticktock
+stream undeploy ticktock
+stream list
+stream destroy ticktock
+stream create --definition "t: cl-time3 | cl-log3e" --name ticktock --deploy
+! cf apps
+stream list
+stream undeploy ticktock
+app list
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-maven --force
+app list
+app import http://bit.ly/1-0-2-GA-stream-applications-rabbit-maven --force
+app list
+app register --name task-processor --type processor --uri maven://io.spring.cloud:taskprocessor:jar:1.1.0.BUILD-SNAPSHOT
+app register --name task-launcher-local --type sink --uri maven://org.springframework.cloud.stream.app:task-launcher-local-sink-rabbit:jar:1.0.2.RELEASE --force
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream list
+stream destroy foo
+// dataflow 1.2.0.RELEASE log opened at 2017-02-01 14:11:32
+app import http://bit.ly/1-0-2-GA-stream-applications-rabbit-maven --force
+app list
+app import http://bit.ly/1-0-2-GA-stream-applications-rabbit-maven --force
+app list
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-maven --force
+app import http://bit.ly/1-0-2-GA-stream-applications-rabbit-maven --force
+app list
+// [failed] stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+app register --name task-launcher-local --type sink --uri maven://org.springframework.cloud.stream.app:task-launcher-local-sink-rabbit:jar:1.0.2.RELEASE --force
+app register --name task-processor --type processor --uri maven://io.spring.cloud:taskprocessor:jar:1.1.0.BUILD-SNAPSHOT
+stream list
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream list
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-02-01 14:17:09
+// dataflow 1.2.0.RELEASE log opened at 2017-02-01 14:17:20
+app list
+stream list
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream list
+stream destroy foo
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=file:///Users/wlund/Dropbox/git-workspace/wxlund/thumbnail-generator/target/thumbnail-generator-0.0.1-SNAPSHOT.jar | task-launcher-local" --deploy
+exit
+// dataflow 1.2.0.RELEASE log closed at 2017-02-01 14:29:19
+// dataflow 1.2.0.RELEASE log opened at 2017-02-01 16:24:49
+stream list
+stream undeploy foo
+stream deploy foo
+stream list
+stream list
+stream list
+stream undeploy foo
+stream deploy foo
+stream list
+stream destroy foo
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=file:///Users/wlund/Dropbox/git-workspace/wxlund/thumbnail-generator/target/thumbnail-generator-0.0.1-SNAPSHOT.jar | task-launcher-local" --deploy
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2017-02-02 09:51:40
+stream list
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-maven --force
+app import http://bit.ly/1-0-2-GA-stream-applications-rabbit-maven --force
+app list
+// [failed] stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=file:///Users/wlund/Dropbox/git-workspace/wxlund/thumbnail-generator/target/thumbnail-generator-0.0.1-SNAPSHOT.jar | task-launcher-local" --deploy
+app register --name task-processor --type processor --uri maven://io.spring.cloud:taskprocessor:jar:1.1.0.BUILD-SNAPSHOT
+app register --name task-launcher-local --type sink --uri maven://org.springframework.cloud.stream.app:task-launcher-local-sink-rabbit:jar:1.0.2.RELEASE --force
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=file:///Users/wlund/Dropbox/git-workspace/wxlund/thumbnail-generator/target/thumbnail-generator-0.0.1-SNAPSHOT.jar | task-launcher-local" --deploy
+stream list
+// [failed] stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-maven --force
+app import http://bit.ly/1-0-2-GA-stream-applications-rabbit-maven --force
+app list
+stream list
+stream destroy foo
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+// [failed] stream destroy foo
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-02-06 10:36:59
+// dataflow 1.2.0.RELEASE log opened at 2017-02-06 10:37:23
+app list
+stream list
+stream destroy foo
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=file:///Users/wlund/Dropbox/git-workspace/wxlund/thumbnail-generator/target/thumbnail-generator-0.0.1-SNAPSHOT.jar | task-launcher-local" --deploy
+// [failed] stream destroy foo
+stream list
+stream destroy foo
+app list
+app list
+// [failed] stream destroy foo
+stream list
+stream list
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream list
+// [failed] stream destroy foo
+stream destroy foo
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream list
+stream list
+stream list
+stream list
+// [failed] stream destroy foo
+stream destroy foo
+// [failed] app register --name task-processor --type processor --uri maven://io.spring.cloud:taskprocessor:jar:1.1.0.RELEASE
+app register --name task-processor --type processor --uri maven://io.spring.cloud:taskprocessor:jar:1.1.0.RELEASE --force
+// [failed] stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+app register --name task-processor --type processor --uri maven://io.spring.cloud:taskprocessor:jar:1.2.0.BUILD-SNAPSHOT --force
+stream list
+// [failed] stream destroy foo
+stream destroy foo
+// [failed] stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+app register --name task-processor --type processor --uri maven://io.spring.cloud:taskprocessor:jar:1.2.0.BUILD-SNAPSHOT --force
+app register --name task-processor --type processor --uri maven://io.spring.cloud:taskprocessor:jar:1.2.0.BUILD-SNAPSHOT --force
+stream list
+// [failed] stream destroy foo
+stream destroy foo
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+// [failed] stream create foo --definition "trigger --fixed-delay=1 | httpclient --url-expression='''https://testredis-nonsensualistic-battler.cfapps.io/''' --httpMethod=GET | log" --deploy
+stream create testredis  --definition "trigger --fixed-delay=1 | httpclient --url-expression='''https://testredis-nonsensualistic-battler.cfapps.io/''' --httpMethod=GET | log" --deploy
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-02-06 11:44:25
+// dataflow 1.2.0.RELEASE log opened at 2017-02-06 11:48:13
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-maven --force
+app import http://bit.ly/1-0-2-GA-stream-applications-rabbit-maven --force
+app register --name task-processor --type processor --uri maven://io.spring.cloud:taskprocessor:jar:1.2.0.BUILD-SNAPSHOT --force
+app register --name task-launcher-local --type sink --uri maven://org.springframework.cloud.stream.app:task-launcher-local-sink-rabbit:jar:1.0.2.RELEASE --force
+stream list
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream destroy foo
+app register --name task-launcher-local --type sink --uri maven://org.springframework.cloud.stream.app:task-launcher-local-sink-rabbit:jar:1.1.0.RELEASE --force
+// [failed] stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+app register --name task-processor --type processor --uri https://github.com/sabbyanandan/thumbnail-generator-s3/raw/master/taskprocessor-1.1.0.BUILD-SNAPSHOT.jar  --force
+stream list
+stream destroy foo
+// [failed] stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+// [failed] stream destroy fo
+stream destroy foo
+app register --name task-launcher-local --type sink --uri maven://org.springframework.cloud.stream.app:task-launcher-local-sink-rabbit:jar:1.0.4.RELEASE --force
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+app list
+stream list
+stream undeploy foo
+// [failed] stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream destroy foo
+stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream list
+stream list
+app list
+// dataflow 1.2.0.RELEASE log opened at 2017-03-01 11:25:17
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-01 11:32:06
+// dataflow 1.2.0.RELEASE log opened at 2017-03-01 11:50:46
+help
+dataflow config server https://wlund-dataflow-server.cfapps.io/
+app list
+stream list
+// [failed] stream create foo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+stream create xfoo --definition "file --filename-pattern=*.jpg --directory=/data --mode=ref --spring.cloud.stream.bindings.output.contentType='text/plain' | task-processor --uri=maven://com.example:thumbnail-generator:0.0.1-SNAPSHOT | task-launcher-local" --deploy
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-01 14:34:49
+// dataflow 1.2.0.RELEASE log opened at 2017-03-01 14:50:12
+// dataflow 1.2.0.RELEASE log opened at 2017-03-01 14:50:42
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+app list
+app list
+stream list
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-maven
+app list
+app import --uri http://bit.ly/Avogadro-GA-stream-applications-rabbit-maven --force
+// [failed] stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream destroy ticktock
+stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream destroy ticktock
+stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream undeploy ticktock
+stream deploy ticktock
+stream list
+stream list
+stream destroy ticktock
+stream create --name ticktock --definition "time | log" --deploy
+stream list
+// [failed] app list
+app list
+stream list
+stream destroy ticktock
+stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream list
+stream destroy ticktock
+stream create --name ticktock --definition "time | log" --deploy
+stream destroy ticktock
+// [failed] stream list
+stream create --name ticktock --definition "time | log" --deploy
+stream undeploy ticktock
+stream destroy ticktock
+stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream destroy ticktock
+stream create --name ticktock --definition "time | log" --deploy
+// dataflow 1.2.0.RELEASE log opened at 2017-03-02 09:20:51
+dataflow config server https://wlund-dataflow-server.cfapps.io
+stream list
+stream undeploy ticktock
+stream destroy ticktock
+stream destroy foo
+stream destroy xfoo
+stream create --name ticktock --definition "time | log" --deploy
+stream undeploy ticktock
+stream destroy ticktock
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-02 10:12:19
+// dataflow 1.2.0.RELEASE log opened at 2017-03-03 17:58:41
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-03 17:58:43
+// dataflow 1.2.0.RELEASE log opened at 2017-03-03 17:58:52
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+app list
+stream create --name ticktock --definition "time | log" --deploy
+stream undeploy ticktock
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-04 09:43:51
+// dataflow 1.2.0.RELEASE log opened at 2017-03-04 09:53:47
+app list
+app import --uri http://bit.ly/Avogadro-SR1-stream-applications-rabbit-maven
+app list
+stream create --name httptest --definition "http --server.port=9000 | log"
+stream deploy --name httptest --properties "app.http.security.basic.enabled=false"
+http post --target http://localhost:9000 --data "hello world"
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language" --deploy
+stream list
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags" --deploy
+stream list
+stream deploy tweets
+stream list
+stream undeploy tweets
+app list
+stream list
+stream deploy tweets
+app list
+stream undeploy tweets
+stream list
+stream undeploy httptest
+stream list
+stream undeploy tagcount
+stream undeploy tweetlang
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+stream list
+stream deploy ticktock
+stream list
+stream undeploy ticktock
+stream deploy ticktock
+app register --name time-source --type source --uri https://github.com/wxlund/demo-time-source/raw/master/target/demo-time-source-0.0.1-SNAPSHOT.jar
+app info source:time-source
+stream create --name timesource --definition "time-source | log"
+stream list
+stream deploy timesource 
+app register --name uhr-source --type source --uri https://github.com/wxlund/demo-time-source/raw/master/target/demo-time-source-0.0.1-SNAPSHOT.jar --force
+stream create --name uhrsource --definition "uhr-source | log" --deploy
+app register --name timemod --type source --uri https://github.com/sabbyanandan/sandbox/raw/master/jars/timemod-0.0.1-SNAPSHOT.jar
+app register --name logmod --type sink --uri https://github.com/sabbyanandan/sandbox/raw/master/jars/timemod-0.0.1-SNAPSHOT.jar
+app list
+app list
+stream list
+stream list
+stream list
+app list
+dataflow config server https://wlund-dataflow-server.cfapps.io
+stream list
+app info --id sink:logmod
+stream undeploy timemod
+app register --name logmod --type sink --uri https://github.com/sabbyanandan/sandbox/raw/master/jars/logmod-0.0.1-SNAPSHOT.jar --force
+app register --name timemod --type source --uri https://github.com/sabbyanandan/sandbox/raw/master/jars/timemod-0.0.1-SNAPSHOT.jar --force
+app list
+app info --id sink:logmod
+stream list
+stream destroy timemod
+stream create --name timemod --definition "timemod | logmod" --deploy
+stream list
+stream list
+stream undeploy timemod
+// [failed] app register --name timemod --type source --uri https://github.com/wxlund/demo-time-source/raw/master/target/demo-time-source-0.0.1-SNAPSHOT.jar
+app register --name timemod --type source --uri https://github.com/wxlund/demo-time-source/raw/master/target/demo-time-source-0.0.1-SNAPSHOT.jar --force
+stream create --name x-timemod --definition "timemod | logmod" --deploy
+stream list
+stream undeploy x-timemod
+stream undeploy timemod
+stream destroy timemod
+stream destroy x-timemod
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-08 09:45:35
+// dataflow 1.2.0.RELEASE log opened at 2017-03-10 16:32:22
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+app register --name time-starter --type source --uri https://github.com/wxlund/app-config/raw/master/apps/time-source-rabbit-1.2.0.BUILD-SNAPSHOT.jar --force
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-10 16:55:13
+// dataflow 1.2.0.RELEASE log opened at 2017-03-10 16:55:19
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app register --name time-starter --type source --uri https://github.com/wxlund/app-config/raw/master/apps/time-source-rabbit-1.2.0.BUILD-SNAPSHOT.jar --force
+stream list
+stream create --name time-starter --definition "time-starter | logmod" --deploy
+// dataflow 1.2.0.RELEASE log opened at 2017-03-13 09:11:11
+dataflow config server https://wlund-dataflow-server.cfapps.io
+stream list
+stream destroy time-starter
+stream create --name time-starter --definition "time-starter | logmod" --deploy
+stream destroy time-starter
+stream create --name time-starter --definition "time-starter | logmod" --deploy
+stream list
+stream destroy time-starter
+app register --name time-starter --type source --uri https://github.com/wxlund/app-config/raw/master/apps/time-source-rabbit-1.2.0.BUILD-SNAPSHOT.jar --force
+stream create --name time-starter --definition "time-starter | logmod" --deploy
+app list
+stream create --name ticktock --definition "time | log" --deploy
+stream destroy ticktock
+stream list
+! cf apps
+stream list
+stream undeploy ticktock
+stream undeploy time-starter
+app list
+app info source:gemfire
+// [failed] stream create --name ticktock --definition "time | log" --deploy
+stream list
+stream deploy time-starter
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-03-22 16:10:30
+// dataflow 1.2.0.RELEASE log opened at 2017-03-27 10:53:49
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+stream create --definition "http --port=7080 --http.path-pattern=http://stream.meetup.com/2/rsvps | log" --name meetup-rsvp
+stream deploy meetup-rsvp
+app list
+stream list
+stream undeploy time-starter
+stream undeploy meetup-rsvp
+stream deploy meetup-rsvp
+stream list
+stream destroy meetup-rsvp
+stream create --definition "http --port=7080 --http.path-pattern=http://stream.meetup.com/2/rsvps | log" --name meetup-rsvp
+stream deploy meetup-rsvp
+stream list
+app info --id source:http
+app list
+app list -version
+stream list
+stream undeploy meetup-rsvp
+stream destroy meetup-rsvp
+stream create --definition "time | httpclient --http.path-pattern=http://stream.meetup.com/2/rsvps | log" --name meetup-rsvp --deploy
+stream destroy meetup-rsvp
+stream create --definition "trigger | httpclient --http.path-pattern=http://stream.meetup.com/2/rsvps | log" --name meetup-rsvp --deploy
+// dataflow 1.2.0.RELEASE log opened at 2017-03-27 15:21:22
+dataflow config server https://wlund-dataflow-server.cfapps.io
+// [failed] stream create --definition "trigger --fixed-delay=1 | httpclient --url-expression=http://stream.meetup.com/2/rsvps --http-method=GET | log" --name meetup-rsvp --deploy 
+stream destroy meetup-rsvp
+stream create --definition "trigger --fixed-delay=1 | httpclient --url-expression=http://stream.meetup.com/2/rsvps --http-method=GET | log" --name meetup-rsvp --deploy 
+stream destroy meetup-rsvp
+stream create --definition "trigger --fixed-delay=1 | httpclient --url-expression='http://stream.meetup.com/2/rsvps' --http-method=GET | log" --name meetup-rsvp --deploy 
+stream list
+stream destroy meetup-rsvp
+stream create --definition "trigger --fixed-delay=1 | httpclient --url-expression='http://stream.meetup.com/2/rsvps' --http-method=GET --inputType=application/json | log" --name meetup-rsvp --deploy 
+stream list
+stream destroy ticktock
+stream destroy time-starter
+stream list
+stream destroy meetup-rsvp
+stream list
+stream create --definition "trigger --fixed-delay=1 | httpclient --url-expression='''http://stream.meetup.com/2/rsvps''' --http-method=GET --inputType=application/json | log" --name meetup-rsvp --deploy 
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2017-03-29 09:01:30
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+stream list
+stream destroy meetup-rsvp
+stream create --definition "trigger --fixed-delay=1 | httpclient --url-expression='''http://stream.meetup.com/2/rsvps''' --http-method=GET --inputType=application/json | log" --name meetup-rsvp --deploy 
+stream list
+stream destroy meetup-rsvp
+stream create --definition "trigger --fixed-delay=1 | httpclient --url-expression='''http://stream.meetup.com/2/rsvps''' --http-method=GET | log" --name meetup-rsvp --deploy 
+stream destroy meetup-rsvp
+stream create --definition "time | httpclient --url-expression='''http://stream.meetup.com/2/rsvps''' --http-method=GET | log" --name meetup-rsvp --deploy 
+stream list
+stream destroy meetup-rsvp
+stream create --definition "time | httpclient --url-expression='''http://stream.meetup.com/2/rsvps''' --http-method=GET | log" --name meetup-rsvp --deploy 
+dataflow config server https://localhost:9393
+dataflow config server http://localhost:9393
+app list
+app import --uri http://bit.ly/Avogadro-SR1-stream-applications-rabbit-maven
+app list
+stream create --definition "time | httpclient --url-expression='''http://stream.meetup.com/2/rsvps''' --http-method=GET | log" --name meetup-rsvp --deploy 
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language" --deploy
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags" --deploy
+stream deploy tweets
+stream undeploy tweets
+stream list
+app list
+stream list
+stream deploy tweets
+app list
+stream list
+// [failed] stream undeploy tweets
+// dataflow 1.2.0.RELEASE log opened at 2017-05-02 21:09:11
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+app import http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app import http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app list
+stream create --name ticktock --definition "time | log" --deploy
+stream list
+! ls -la
+! pwd
+stream list
+stream undeploy ticktock
+app list
+stream deploy ticktock
+stream list
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-05-05 10:06:52
+// dataflow 1.2.0.RELEASE log opened at 2017-05-05 10:16:23
+dataflow config server https://wlund-dataflow-server.cfapps.io
+// dataflow 1.2.0.RELEASE log opened at 2017-05-08 08:40:40
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-05-08 16:55:59
+// dataflow 1.2.0.RELEASE log opened at 2017-05-09 19:36:48
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-05-09 19:37:34
+// dataflow 1.2.0.RELEASE log opened at 2017-05-09 19:41:19
+dataflow config server https://wlund-dataflow-server.cfapps.io
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-05-10 11:29:52
+// dataflow 1.2.0.RELEASE log opened at 2017-05-15 10:18:14
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app list
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+stream list
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" --deploy
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream list
+stream deploy tweets
+// [failed] stream create --definition "http | transform --expression=payload.getValue('hello').toUpperCase() | log" --name ticktock
+// [failed] stream create --definition "http | transform --expression=payload.getValue('hello').toUpperCase() | log" --name ticktock
+// [failed] stream create --definition "http | transform --expression=payload.getValue('hello').toUpperCase() | log" --name ticktock
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+stream create --definition "http | transform --expression=payload.getValue('hello').toUpperCase() | log" --name ticktock
+stream list
+stream deploy ticktock
+http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:8080
+http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:9393
+// [failed] http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:<http-port>
+http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:8080
+http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:8090
+stream undeploy ticktock
+stream deploy ticktock --properties
+http post --target http://localhost:1234 --data "hello"
+http post --target http://localhost:1234 --data "goodbye"
+stream list
+stream undeploy ticktock
+stream destroy ticktock
+// [failed] stream create --definition "http --target http://localhost:8090 | transform --expression=payload.getValue('hello').toUpperCase() | log" --name ticktock
+// [failed] stream create --definition "http --target 'http://localhost:8090' | transform --expression=payload.getValue('hello').toUpperCase() | log" --name ticktock
+stream create --definition "http --server.port= 'http://localhost:8090' | transform --expression=payload.getValue('hello').toUpperCase() | log" --name ticktock
+stream deploy ticktock --properties
+stream destroy ticktock
+stream create --definition "http --server.port=8090 | transform --expression=payload.getValue('hello').toUpperCase() | log" --name ticktock
+stream deploy ticktock --properties
+http post --target http://localhost:9000 --data "hello world"
+http post --target http://localhost:8090 --data "hello world"
+http post --target http://localhost:8090 --data "hello world"
+stream list
+stream destroy ticktock
+stream create tuple --definition "http | filter --inputType=application/x-spring-tuple --expression=payload.hasFieldName('hello') | transform --expression=payload.getValue('hello').toUpperCase() | log" --deploy
+stream destroy tuple
+stream create tuple --definition "http --server.port=8090 | filter --inputType=application/x-spring-tuple --expression=payload.hasFieldName('hello') | transform --expression=payload.getValue('hello').toUpperCase() | log" --deploy
+http post --target http://localhost:8090 --data "hello world"
+http post --target http://localhost:8090 --data "hello world"
+http post --target http://localhost:8090 --data "hello world"
+stream list
+http post --target http://localhost:8090 --data "hello"
+http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:8090
+// dataflow 1.2.0.RELEASE log opened at 2017-05-15 20:26:41
+http post --target http://localhost:8090 --data "hello world"
+http post --data {"hello":"world"} --contentType application/json --target http://localhost:8090 
+http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:8090
+http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:8090
+stream list
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app list
+app register --name uppercase --type processor --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/DNDataflow/labs/jars/streamlab-0.0.1-SNAPSHOT.jar
+app list
+app list
+stream create foo --definition "http --port=9001 | uppercase | log"
+stream deploy foo
+stream list
+http post --target http://localhost:9001 --data “hello
+http post --target http://localhost:9001 --data "hello world"
+http post --target http://localhost:9001 --data "hello world"
+stream list
+stream destroy foo
+stream list
+stream create foo --definition "http --port=9001 | uppercase | log"
+stream deploy foo
+stream list
+http post --target http://localhost:9001 --data "hello world"
+// dataflow 1.2.0.RELEASE log opened at 2017-05-17 09:35:01
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+// [failed] stream create foo --definition "http --port=9001 | uppercase | log"
+app list
+app register --name time-starter --type source --uri https://github.com/wxlund/app-config/raw/master/apps/time-source-rabbit-1.2.0.BUILD-SNAPSHOT.jar --force
+app register --name uppercase --type processor --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/DNDataflow/labs/jars/streamlab-0.0.1-SNAPSHOT.jar
+stream create foo --definition "http --port=9001 | uppercase | log"
+stream list
+stream list
+stream list
+app info processor:uppercase
+app list
+stream create --definition "http | transform --expression=payload.getValue('hello').toUpperCase() | log" --name uppercase
+stream deploy uppercase
+stream list
+stream destroy uppercase
+stream create --definition "http --server.port=9001 | transform --expression=payload.getValue('hello').toUpperCase() | log" --name uppercase
+stream deploy uppercase
+http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:9001
+http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:9001
+http post --data {"hello":"world","foo":"bar"} --contentType application/json --target http://localhost:9001
+http post --data {"hello":"world"} --contentType application/json --target http://localhost:9001
+stream list
+http post --data {"hello":"world"} --contentType application/json --target http://localhost:9001
+http post --target http://localhost:1234 --data "hello"
+http post --target http://localhost:9001 --data "hello"
+stream create --definition "http | transform --expression=payload.toUpperCase() | log" --name mystream --deploy
+http post --target http://localhost:1234 --data "hello"
+stream list
+http post --target http://localhost:1234 --data "hello"
+stream destroy mystream
+http post --target http://localhost:9002 --data "hello"
+stream create --definition "http --server.port=9002 | transform --expression=payload.toUpperCase() | log" --name mystream --deploy
+http post --target http://localhost:9002 --data "hello"
+app list
+stream create --name words --definition "http --server.port=9900 | splitter --expression=payload.split(' ') | log"
+stream deploy words --properties "app.splitter.producer.partitionKeyExpression=payload,app.log.count=2"
+stream list
+http post --target http://localhost:9900 --data "How much wood would a woodchuck chuck if a woodchuck could chuck wood"
+app list
+app import --uri http://bit.ly/Belmont-GA-task-applications-maven
+app list
+task create --name mystamp --definition "timestamp"
+task launch mystamp
+task execution list
+app register --name batch-events --type task --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/DNDataflow/labs/jars/batch-events.jar
+app list
+task create --name myBatchTask --definition "batch-events"
+task launch myBatchTask
+task execution list
+job execution list
+job execution display --id 1
+// [failed] app register --name uppercase --type processor --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/DNDataflow/labs/jars/streamlab-0.0.1-SNAPSHOT.jar
+app register --name uppercase --type processor --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/DNDataflow/labs/jars/streamlab-0.0.1-SNAPSHOT.jar --force
+// [failed] stream create foo --definition "http --port=9001 | uppercase | log" --deploy
+stream destroy foo
+stream create foo --definition "http --port=9001 | uppercase | log" --deploy
+stream list
+stream list
+stream list
+stream list
+app list
+stream list
+runtime apps
+app list
+stream list
+runtime apps 
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2017-05-17 11:05:01
+stream destroy foo
+stream create foo --definition "http --port=9003 | uppercase | log" --deploy
+stream list
+stream list
+stream list
+http post --target http://localhost:9003 --data "hello world"
+// [failed] stream deploy tweets
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" --deploy
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream deploy tweets
+stream list
+app list
+stream list
+stream undeploy tweets
+app list
+stream list
+stream undeploy words
+stream deploy words --properties "app.splitter.producer.partitionKeyExpression=payload,app.log.count=2"
+http post --target http://localhost:9900 --data "How much wood would a woodchuck chuck if a woodchuck could chuck wood"
+app list
+task list
+task launch mystamp
+task execution list
+app list
+task launch myBatchTask
+task execution list
+task execution list
+task execution list
+task execution list
+task execution list
+// [failed] job execution display --id 2
+job execution display --id 1
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-05-21 10:20:53
+// dataflow 1.2.0.RELEASE log opened at 2017-05-31 15:23:43
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+app info --id sink:cassandra 
+app list
+stream list
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" --deploy
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream list
+stream deploy tweets
+stream list
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-05-31 15:48:03
+// dataflow 1.2.0.RELEASE log opened at 2017-05-31 15:48:29
+dataflow config server https://localhost:9393
+dataflow config server https://localhost:9393
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-05-31 15:49:13
+// dataflow 1.2.0.RELEASE log opened at 2017-05-31 15:49:33
+app list
+app register --name uppercase --type processor --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/DNDataflow/labs/jars/streamlab-0.0.1-SNAPSHOT.jar --force
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app list
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" --deploy
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream list
+stream deploy tweets
+app list
+app info --id sink:cassandra
+stream undeploy tweets
+// dataflow 1.2.0.RELEASE log opened at 2017-06-05 16:00:32
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+stream list
+stream undeploy tweets
+stream undeploy ticktock
+stream undeploy tweetlang
+stream undeploy tagcount
+stream list
+dataflow config server https://localhost:9393
+dataflow config server http://localhost:9393
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app list
+// [failed] app register --name meetup-rsvp --type source --uri /Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/spring-cloud-starter-stream-source-meetup-rsvp/target/spring-cloud-starter-stream-source-meetup-rsvp-1.2.1.BUILD-SNAPSHOT.jar --force
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/spring-cloud-starter-stream-source-meetup-rsvp/target/spring-cloud-starter-stream-source-meetup-rsvp-1.2.1.BUILD-SNAPSHOT.jar --force
+app list
+stream create --name test --definition "meetup-rsvp | log" --deploy
+stream list
+stream list
+stream list
+stream list
+// [failed] app register --name meetup-rsvp --type source --uri file:////Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/
+app register --name meetup-rsvp --type source --uri file:////Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+app list
+// [failed] stream create --name test --definition "meetup-rsvp | log" --deploy
+stream destroy test
+// [failed] stream create --name test --definition "meetup-rsvp | log" --deploy
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream list
+stream destroy test
+// [failed] stream create --name test --definition "meetup-rsvp | log" --deploy
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream list
+stream destroy test
+stream create --name test --definition "meetup-rsvp | log" --deploy
+// [failed] stream undeploy meetup-rsvp
+stream undeploy test
+stream deploy test
+stream undeploy test
+// [failed] stream create venue-name --definition ":test:meetup-rsvp > field-value-counter --fieldName=venue.venue-name.text" --deploy
+stream list
+stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue.venue-name.text" --deploy
+stream list
+field-value-counter list
+stream deploy test
+field-value-counter list
+stream list
+field-value-counter list
+stream undeploy test
+app list
+stream list
+stream deploy test
+app info sink:cassandra
+app list
+stream list
+stream undeploy test
+stream list
+// [failed] stream destroy venue-name
+dataflow config server http://localhost:9393
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name test --definition "meetup-rsvp | log" --deploy
+// [failed] stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue.venue-name.text | log" --deploy
+stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue.venue-name.text" --deploy
+// [failed] stream deploy test
+stream list
+dataflow config server http://localhost:9393
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name test --definition "meetup-rsvp | log" --deploy
+stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue.venue-name.text" --deploy
+stream list
+app list
+stream list
+field-value-counter list
+// [failed] field-value-counter display --name venue-name
+dataflow config server http://localhost:9393
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app list
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name test --definition "meetup-rsvp | log" --deploy
+stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue.venue_name.text" --deploy
+field-value-counter list
+field-value-counter list
+stream destroy venue-name
+stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue-name --name=venue.venue_name.text" --deploy
+stream list
+stream list
+field-value-counter list
+field-value-counter list
+stream list
+stream destroy venue-name
+stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue.venue_name.text --name=venue" --deploy
+stream list
+stream list
+field-value-counter list
+stream list
+stream undeploy test
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" --deploy
+// [failed] stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream list
+// [failed] stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+stream list
+stream deploy tweets
+stream list
+stream undeploy tweets
+stream list
+stream destroy venue-name
+stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue.venue_name.text --name=venue" --deploy
+stream destroy venue-name
+stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue.venue_name --name=venue" --deploy
+stream list
+stream list
+field-value-counter list
+stream destroy venue-name
+stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue.venue_name --name=venue --store=redis" --deploy
+stream list
+field-value-counter list
+stream deploy test
+field-value-counter list
+app list
+stream list
+stream destroy venue-name
+stream create venue-name --definition ":test.meetup-rsvp > field-value-counter --fieldName=venue.venue_name.text --name=venue --store=redis" --deploy
+stream list
+stream list
+field-value-counter list
+field-value-counter display --name venue
+stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup" --deploy
+stream list
+stream list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | cassandra --ingest-query='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup" --deploy
+stream list
+stream list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | cassandra --ingest-query='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username='cassandra' --Password='cassandra'" --deploy
+stream list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username='cassandra' --Password='cassandra'" --deploy
+stream list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream list
+stream list
+stream list
+stream undeploy csql
+stream deploy csql
+stream list
+stream list
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-06-12 16:08:39
+// dataflow 1.2.0.RELEASE log opened at 2017-09-15 10:18:06
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-kafka-10-maven
+app list
+stream create --name httptest --definition "http --server.port=9000 | log" --deploy
+app list
+stream list
+stream list
+stream list
+http post --target http://localhost:9000 --data "hello world"
+http post --target http://localhost:9000 --data "hello world"
+app list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-09-15 15:24:22
+// dataflow 1.2.0.RELEASE log opened at 2017-09-15 15:24:31
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-kafka-10-maven
+app list
+stream list
+stream create --name httptest --definition "http --server.port=9000 | log" --deploy
+stream list
+stream list
+stream list
+http post --target http://localhost:9000 --data "hello world"
+// dataflow 1.2.0.RELEASE log opened at 2017-09-19 17:32:49
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-kafka-10-maven
+app list
+http post --target http://localhost:9000 --data "hello world"
+stream list
+stream create --name httptest --definition "http --server.port=9000 | log" --deploy
+stream list
+stream list
+stream list
+stream list
+stream list
+stream list
+http post --target http://localhost:9000 --data "hello world"
+// dataflow 1.2.0.RELEASE log opened at 2017-10-03 10:05:46
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-kafka-10-maven
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-10-03 10:06:53
+// dataflow 1.2.0.RELEASE log opened at 2017-10-03 10:06:59
+// [failed] app import --uri bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app list
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" --deploy
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream deploy tweets
+stream list
+stream create --name httptest --definition "http --server.port=9000 | log" --deploy
+// [failed] http post --data {"hello":"world","foo":"bar"} --contentType
+http post --target http://localhost:9000 --data "hello world"
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-10-03 10:44:22
+// dataflow 1.2.0.RELEASE log opened at 2017-10-03 10:44:48
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app list
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" --deploy
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream deploy tweets
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2017-10-11 13:36:31
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven
+app list
+stream create router-test --definition "http --server.port=9000 | router --script=file://Users/wlund/Dropbox/git-workspace/router/router.groovy"
+stream list
+stream deploy router-test
+stream list
+stream list
+stream list
+stream list
+stream list
+stream deploy router-test
+stream list
+stream destroy router-test
+stream create router-test --definition "http --server.port=9000 | router --script=file://Users/wlund/Dropbox/git-workspace/router/router.groovy"
+stream deploy router-test
+stream list
+app list
+stream list
+http post --target http://localhost:9000 --data "aaaaaa"
+stream list
+stream destroy router-test
+stream create router-test --definition "http --server.port=9000 | router --script=file:/Users/wlund/Dropbox/git-workspace/router/router.groovy"
+stream deploy router-test
+stream list
+stream list
+stream list
+stream list
+stream list
+stream list
+stream destroy router-test
+stream create router-test --definition "http --server.port=9000 | router --script='file:/Users/wlund/Dropbox/git-workspace/wxlund/router/router.groovy'"
+stream deploy router-test
+stream list
+stream list
+http post --target http://localhost:9000 --data "aaaaaa"
+dataflow config server https://wlund-dataflow-server.cfapps.io/
+app list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-10-11 15:53:13
+// dataflow 1.2.0.RELEASE log opened at 2017-10-11 15:53:42
+dataflow config server https://wlund-dataflow-server.cfapps.io/
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app list
+stream create router-test --definition "http --server.port=9000 | router --script='https://raw.githubusercontent.com/wlund-pivotal/spring-cloud-data-flow-demo/master/router.groovy'"
+stream deploy router-test
+http post --target http://localhost:9000 --data "aaaaaa"
+http post --target https://wlund-dataflow-server-uk1wo9m-router-test-http.cfapps.io/ --data "aaaaaa"
+stream destroy router-test
+// [failed] stream create router-test --definition "http --server.port=9000 | router --script='https://raw.githubusercontent.com/wlund-pivotal/spring-cloud-data-flow-demo/master/router.groovy'"
+dataflow config server https://wlund-dataflow-server.cfapps.io/
+dataflow config server https://wlund-dataflow-server.cfapps.io/
+stream create router-test --definition "http --server.port=9000 | router --script='https://raw.githubusercontent.com/wlund-pivotal/spring-cloud-data-flow-demo/master/router.groovy'"
+stream deploy router-test
+stream list
+stream list
+http post --target https://wlund-dataflow-server-uk1wo9m-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-router.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-router.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-uk1wo9m-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io:9000/ --data "aaaaaa"
+stream list
+http post --target https://wlund-dataflow-server-l5fvauf-router-test-http.cfapps.io:9000/ --data "aaaaaa"
+stream destroy router-test
+stream create router-test --definition "http | router --script='https://raw.githubusercontent.com/wlund-pivotal/spring-cloud-data-flow-demo/master/router.groovy'"
+stream deploy router-test
+stream list
+http post --target http://wlund-dataflow-server-mjwr4cg-router-test-http.cfapps.io/ --data "aaaaaa"
+http post --target http://wlund-dataflow-server-mjwr4cg-router-test-http.cfapps.io/ --data "aaaaaa"
+// dataflow 1.2.0.RELEASE log opened at 2017-10-27 14:15:35
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app list
+// [failed] stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username=cassandra --Password=cassandra" --deploy
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream list
+stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream undeploy csql
+// [failed] stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetups(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetup --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetup(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream list
+stream list
+dataflow config server https://localhost:9393
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-10-30 13:49:16
+// dataflow 1.2.0.RELEASE log opened at 2017-10-30 13:49:25
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetup(id, rsvp_id, vender_name values (uuid(), ?, ?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country,description, duration, event_url, geo, lat, lon, mtime, name, state,utc_offset, venue_name, zip values (uuid(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+app list
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file://Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file://Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file://Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-10-30 18:37:34
+// dataflow 1.2.0.RELEASE log opened at 2017-10-30 18:43:41
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file://Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream list
+app list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream undeploy csql
+// dataflow 1.2.0.RELEASE log opened at 2017-11-01 10:59:48
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream undeploy csql
+stream list
+stream deploy csql;
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/extract-venue.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" --deploy
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream deploy tweets
+stream list
+field-value-counter list
+field-value-counter display hashtags
+field-value-counter list
+field-value-counter display language
+app list
+field-value-counter list
+field-value-counter display hashtags
+field-value-counter display language
+app list
+stream list
+stream destroy tweets
+stream list
+stream destroy tagcount
+stream destroy tweetlang
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+app list
+stream list
+stream destroy csql
+// dataflow 1.2.0.RELEASE log opened at 2017-11-03 08:05:03
+dataflow config server https://localhost:9393
+dataflow config server https://localhost:9393
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-03 08:05:24
+// dataflow 1.2.0.RELEASE log opened at 2017-11-03 08:05:29
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+// [failed] stream destroy csql
+dataflow config server https://localhost:9393
+dataflow config server http://localhost:9393
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream destroy csql
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy  cassandra --ingestQuery='insert into meetup(mid, address_1) values (mid, address_1)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy |  cassandra --ingestQuery='insert into meetup(mid, address_1) values (mid, address_1)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy |  cassandra --ingestQuery='insert into meetup(mid, address_1) values (mid, address_1)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy |  cassandra --ingestQuery='insert into meetup(mid, address_1) values (mid, address_1)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy |  cassandra --ingestQuery='insert into meetup(mid, address_1) values (mid, address_1)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy |  cassandra --ingestQuery='insert into meetup(mid) values (mid)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy |  cassandra --ingestQuery='insert into meetup(mid) values (mid)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy |  cassandra --ingestQuery='insert into meetup(mid) values (mid)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy |  cassandra --ingestQuery='insert into meetup(mid) values (mid)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy |  cassandra --ingestQuery='insert into meetup(mid) values (?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy |  groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy |  cassandra --ingestQuery='insert into meetup(mid) values (?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+// dataflow 1.2.0.RELEASE log opened at 2017-11-06 09:59:48
+app list
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream destroy csql
+// [failed] stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream destroy csql
+dataflow config server http://https://wlund-dataflow-server.cfapps.io/
+dataflow config server https://https://wlund-dataflow-server.cfapps.io/
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+stream destroy tweets
+stream create tweets --definition "twitterstream --accessToken=23081432-xJkTzl40DOnjLLyuXchQi5fVtMq3ozCfM3t04HnRK --consumerKey=hJDWTg1aBlUJZiy21H824QLPj --consumerSecret=CIzlRx7Va8ynTjFncsS7guESFcjI6asy2XYl0GPUv9YMpfuluF --accessTokenSecret=5dlqIuz0rkcLsksQKTRaf92WADQJOUOUcC3d6vVboUYlP | log"
+// [failed] stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" --deploy
+stream destroy tweetlang
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" --deploy
+// [failed] stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream destroy tagcount
+stream create tagcount --definition ":tweets.twitterstream > field-value-counter --fieldName=entities.hashtags.text --name=hashtags --store=redis" --deploy
+stream list
+stream deploy tweets
+stream list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+stream destroy tweetlang
+stream create tweetlang  --definition ":tweets.twitterstream > field-value-counter --fieldName=lang --name=language --store=redis" 
+stream deploy --name tweetlang --properties "deployer.jdbc.cloudfoundry.services=redis"
+// [failed] stream deploy --name tweetlang --properties "deployer.redis.cloudfoundry.services=redis"
+// [failed] stream deploy --name tweetlang --properties "deployer.redis.cloudfoundry.services=redis"
+stream list
+// [failed] stream deploy language
+stream destroy ticktock
+stream list
+stream list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+stream list
+// dataflow 1.2.0.RELEASE log opened at 2017-11-06 16:14:19
+dataflow config server https://wlund-dataflow-server.cfapps.io
+app list
+stream list
+stream undeploy tweetlang
+stream deploy --name tweetlang --properties "deployer.tweetlang.cloudfoundry.services=redis, rabbit"
+field-value-counter list
+stream list
+field-value-counter list
+field-value-counter list
+field-value-counter display language
+// [failed] app list
+dataflow config server https://wlund-dataflow-server.cfapps.io
+dataflow config server https://wlund-dataflow-server.cfapps.io
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-07 13:13:22
+// dataflow 1.2.0.RELEASE log opened at 2017-11-07 13:13:31
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app list
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app register --name meetup-rsvp --type source --uri file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/apps/meetup-rsvp-source-rabbit/target/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar --force
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-filter.groovy | groovy-transform --script=file:///Users/wlund/Dropbox/git-workspace/wxlund/meetup-rsvp-master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream create cities  --definition ":meetup-rsvp.twitterstream > field-value-counter --fieldName=cities --name=cities --store=redis" 
+stream list
+stream list
+stream deploy --name cities --properties "deployer.cities.cloudfoundry.services=redis, rabbit"
+stream list
+stream list
+field-value-counter list
+// dataflow 1.2.0.RELEASE log opened at 2017-11-08 11:16:08
+app list
+stream destroy cities
+stream create cities  --definition ":meetup-rsvp.csql > field-value-counter --fieldName=cities --name=cities --store=redis" 
+stream deploy --name cities --properties "deployer.cities.cloudfoundry.services=redis, rabbit"
+field-value-counter list
+stream list
+stream destroy cities
+stream create cities --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue.city --name=cities --store=redis"
+stream deploy --name cities --properties "deployer.cities.cloudfoundry.services=redis, rabbit"
+stream list
+stream deploy csql
+stream list
+field-value-counter list
+field-value-counter display cities
+stream create venue --definition ":csql.meetup-rsvp > field-value-counter --fieldName=name --name=venue-name --store=redis"
+stream deploy --name venue --properties "deployer.venue.cloudfoundry.services=redis, rabbit"
+field-value-counter list
+field-value-counter list
+stream list
+field-value-counter list
+field-value-counter display --name venue-name
+dataflow config server https://dataflow-779a9b3e-216b-4f6f-b7a2-02f05803ff7f.pcfbeta.io/
+dataflow config server http://localhost:9393
+app list
+field-value-counter list
+// [failed] field-value-counter display --name venue_name
+stream list
+// [failed] field-value-counter display --name venue
+// [failed] field-value-counter display venue
+// [failed] field-value-counter display --name venue_name
+field-value-counter display cities
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-10 10:18:37
+// dataflow 1.2.0.RELEASE log opened at 2017-11-10 10:20:03
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-10 10:20:25
+// dataflow 1.2.0.RELEASE log opened at 2017-11-10 10:20:41
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-10 10:20:46
+// dataflow 1.2.0.RELEASE log opened at 2017-11-10 10:24:32
+app list
+app list
+// dataflow 1.2.0.RELEASE log opened at 2017-11-13 09:55:35
+app list
+app register --name meetup-rsvp --type source --uri https://github.com/wxlund/meetup-rsvp-master/blob/master/jars/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar?raw=true --force
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=cassandra" --deploy
+stream list
+stream list
+stream destroy csql
+// [failed] stream create --name csql-logs --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy" --deploy
+stream list
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | log" --deploy
+stream list
+stream create cities --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue.city --name=cities --store=redis"
+stream deploy --name cities --properties "deployer.cities.cloudfoundry.services=redis, rabbit"
+stream create venue --definition ":csql.meetup-rsvp > field-value-counter --fieldName=name --name=venue-name --store=redis"
+stream deploy --name venue --properties "deployer.venue.cloudfoundry.services=redis, rabbit"
+stream list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+stream destroy cities
+stream destroy venue
+stream create venue --definition ":csql.meetup-rsvp > field-value-counter --fieldName=name --name=venue-name --store=redis"
+stream create cities --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue.city --name=cities --store=redis"
+stream deploy --name venue --properties "deployer.venue.cloudfoundry.services=redis, rabbit"
+stream deploy --name cities --properties "deployer.cities.cloudfoundry.services=redis, rabbit"
+stream list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+stream destroy csql
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=datastax1! --contact-points=129.146.76.163, 129.146.64.217, 129.146.42.130 --port=9042" --deploy
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=datastax1! --contact-points='129.146.76.163, 129.146.64.217, 129.146.42.130' --port=9042" --deploy
+stream list
+stream list
+stream destroy csql;
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | log2" --deploy
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | log" --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups --Username=cassandra --Password=datastax1!" --deploy
+stream undeploy cities 
+stream undeploy venue
+stream deploy cities
+stream deploy venue
+stream list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --keyspace=meetups" --deploy
+field-value-counter list
+stream list
+field-value-counter list
+stream undeploy cities
+stream deploy --name cities --properties "deployer.cities.cloudfoundry.services=analytics-779a9b3e-216b-4f6f-b7a2-02f05803ff7f, messaging-779a9b3e-216b-4f6f-b7a2-02f05803ff7f"
+stream undeploy venue
+stream deploy --name venue --properties "deployer.venue.cloudfoundry.services=analytics-779a9b3e-216b-4f6f-b7a2-02f05803ff7f, messaging-779a9b3e-216b-4f6f-b7a2-02f05803ff7f"
+stream list
+stream list
+stream destroy csql
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points '129.146.76.163, 129.146.64.217, 129.146.42.130' --Username 'cassandra' --Password 'datastax1!' --Port '9042' --keyspace=meetups" --deploy
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163, 129.146.64.217, 129.146.42.130' --Username='cassandra' --Password='datastax1!' --Port='9042' --keyspace=meetups" --deploy
+stream list
+field-value-counter list
+app list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --contact-points='129.146.76.163, 129.146.64.217, 129.146.42.130' --username='cassandra' --password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+field-value-counter list
+stream undeploy venue;
+stream deploy --name venue --properties "deployer.venue.cloudfoundry.services=analytics-779a9b3e-216b-4f6f-b7a2-02f05803ff7f, messaging-779a9b3e-216b-4f6f-b7a2-02f05803ff7f"
+stream destroy cities
+stream destroy venue
+stream create cities --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue.city --name=cities --store=redis"
+stream create venue --definition ":csql.meetup-rsvp > field-value-counter --fieldName=name --name=venue-name --store=redis"
+field-value-counter list
+stream deploy cities
+stream deploy venue
+field-value-counter list
+stream create foo --definition "foo = time | log"
+stream create counter --definition "bar = :foo.time > counter --name=ticks"
+stream deploy foo
+// [failed] stream deploy bar
+stream deploy counter
+field-value-counter list
+counter list
+stream destroy foo
+stream destroy counter
+stream create foo --definition "time | log"
+stream create counter --definition ":foo.time > counter --name=ticks"
+counter list
+counter list
+stream deploy foo
+stream deploy counter
+counter list
+stream list
+stream destroy foo
+stream destroy counter
+stream create foo --definition "time | counter --name=aCounter" --deploy
+stream list
+stream create foo-counter --definition "bar = :foo.time > counter --name=ticks"
+stream list
+counter list
+stream deploy foo-counter
+stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-15 14:32:28
+// dataflow 1.2.0.RELEASE log opened at 2017-11-15 14:33:54
+app list
+app register --name meetup-rsvp --type source --uri https://github.com/wxlund/meetup-rsvp-master/blob/master/jars/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar?raw=true --force
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+stream create cities --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue.city --name=cities" --deploy
+stream create venue --definition ":csql.meetup-rsvp > field-value-counter --fieldName=name --name=venue-name" --deploy
+field-value-counter list
+stream undeploy cities
+stream undeploy venue
+stream list
+stream undeploy csql
+app list
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups"
+stream list
+// [failed] stream deploy csql
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-16 11:46:39
+// dataflow 1.2.0.RELEASE log opened at 2017-11-16 11:46:48
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-16 11:54:13
+// dataflow 1.2.0.RELEASE log opened at 2017-11-16 11:55:12
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-16 11:55:18
+// dataflow 1.2.0.RELEASE log opened at 2017-11-16 11:57:26
+app list
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+stream list
+stream deploy cities
+stream deploy venue
+stream list
+stream undeploy csql
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+stream list
+field-value-counter list
+stream destroy cities
+stream destroy venue
+stream undeploy csql
+stream create cities --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue.city --name=cities" --deploy
+stream create venue --definition ":csql.meetup-rsvp > field-value-counter --fieldName=name --name=venue-name" --deploy
+stream deploy csql
+field-value-counter list
+field-value-counter display cities
+field-value-counter display cities
+field-value-counter display cities
+stream undeploy csql
+stream deploy csql
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+stream list
+field-value-counter list
+// dataflow 1.2.0.RELEASE log opened at 2017-11-17 15:08:38
+app list
+// [failed] stream create aggregate-counter --definition ":csql.meetup-rsvp > meetups-aggregate" --deploy
+stream create meetups-aggregate-counter  --definition ":csql.meetup-rsvp > aggregate-counter" --deploy
+aggregate-counter list
+aggregate-counter list
+aggregate-counter display dataflow-uYO8pmG-meetups-aggregate-counter-aggregate-counter
+stream undeploy csql
+// dataflow 1.2.0.RELEASE log opened at 2017-11-20 10:26:13
+app list
+stream list
+app list
+// dataflow 1.2.0.RELEASE log opened at 2017-11-27 14:20:31
+app register --name meetup-rsvp --type source --uri https://github.com/wxlund/meetup-rsvp-master/blob/master/jars/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar?raw=true --force
+app register --name meetup-rsvp --type source --uri https://github.com/wxlund/meetup-rsvp-master/blob/master/jars/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar?raw=true --force
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'  --keyspace=meetups" --deploy
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-28 15:45:35
+// dataflow 1.2.0.RELEASE log opened at 2017-11-28 15:57:22
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app list
+app register --name meetup-rsvp --type source --uri https://github.com/wxlund/meetup-rsvp-master/blob/master/jars/meetup-rsvp-source-rabbit-1.2.1.BUILD-SNAPSHOT.jar?raw=true --force
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+stream list
+stream create venue --definition ":csql.meetup-rsvp > field-value-counter --fieldName=name --name=venue-name" --deploy
+stream create cities --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue.city --name=cities" --deploy
+stream list
+field-value-counter list
+stream list
+stream list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+field-value-counter list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-28 16:58:52
+// dataflow 1.2.0.RELEASE log opened at 2017-11-28 16:59:11
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-28 16:59:24
+// dataflow 1.2.0.RELEASE log opened at 2017-11-28 17:00:07
+stream list
+field-value-counter list
+stream undeploy csql
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-28 17:00:54
+// dataflow 1.2.0.RELEASE log opened at 2017-11-28 17:02:07
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-28 17:03:46
+// dataflow 1.2.0.RELEASE log opened at 2017-11-28 17:04:25
+app list
+stream list
+stream deploy csql
+field-value-counter list
+stream undeploy csql
+stream deploy csql
+// [failed] stream list
+// [failed] stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-28 17:12:40
+// dataflow 1.2.0.RELEASE log opened at 2017-11-28 17:13:44
+stream list
+stream undeploy csql
+// [failed] stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+field-value-counter list
+// dataflow 1.2.0.RELEASE log opened at 2017-11-29 10:46:29
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-29 10:48:36
+// dataflow 1.2.0.RELEASE log opened at 2017-11-29 10:49:00
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-11-29 10:49:09
+// dataflow 1.2.0.RELEASE log opened at 2017-11-29 10:50:20
+app list
+stream list
+field-value-counter list
+// [failed] stream undeploy csql
+stream undeploy csql
+// [failed] app list
+app list
+// dataflow 1.2.0.RELEASE log opened at 2017-12-05 15:54:30
+app list
+stream list
+stream destroy cities
+stream destroy venue
+stream create cities --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue.city --name=cities" --deploy
+// [failed] stream destroy venue
+stream create venue --definition ":csql.meetup-rsvp > field-value-counter --fieldName=name --name=venue-name" --deploy
+stream create meetups-aggregate-counter  --definition ":csql.meetup-rsvp > aggregate-counter" --deploy
+field-value-counter list
+field-value-counter list
+field-value-counter list
+stream undeploy csql
+stream deploy csql
+stream list
+field-value-counter list
+aggregate-counter list
+app list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-12-06 14:14:10
+// dataflow 1.2.0.RELEASE log opened at 2017-12-06 14:14:29
+app list
+runtime apps 
+version
+system properties
+cls
+app list
+// dataflow 1.2.0.RELEASE log opened at 2017-12-14 15:53:45
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2017-12-14 15:54:55
+// dataflow 1.2.0.RELEASE log opened at 2017-12-19 11:34:24
+app import --uri http://bit.ly/Bacon-RELEASE-stream-applications-rabbit-maven --force
+app list
+// dataflow 1.2.0.RELEASE log opened at 2018-01-22 11:45:02
+stream list
+stream create cities --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue.city --name=cities" --deploy
+stream create meetups-aggregate-counter  --definition ":csql.meetup-rsvp > aggregate-counter" --deploy
+// [failed] counter list
+// [failed] counter list
+stream list
+stream destroy csql
+stream create --name csql --definition "meetup-rsvp | groovy-filter --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-filter.groovy | groovy-transform --script=https://github.com/wxlund/meetup-rsvp-master/raw/master/meetup-rsvp-transform.groovy | cassandra --ingestQuery='insert into meetup(mid, address_1, city, country, description, duration, event_url, geo, lat, lon, mtime, name, state, utc_offset, venue_name, zip)  values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' --Contact-points='129.146.76.163,129.146.64.217,129.146.42.130' --Username='cassandra' --Password='datastax1!' --port='9042' --keyspace=meetups" --deploy
+stream list
+stream destroy cities
+stream create cities --definition ":csql.meetup-rsvp > field-value-counter --fieldName=venue.city --name=cities" --deploy
+// [failed] counter list
+// [failed] counter list
+// [failed] counter display cities
+stream destroy csql
+// [failed] stream destroy cities
+stream destroy venue-name
+stream destroy cities
+// [failed] stream destroy meetup-aggregate-counter
+stream destroy meetups-aggregate-counter
+// [failed] stream list
+quit
+// dataflow 1.2.0.RELEASE log closed at 2018-01-22 17:25:33
+// dataflow 1.2.0.RELEASE log opened at 2018-01-23 09:30:52
+quit
+// dataflow 1.2.0.RELEASE log closed at 2018-01-23 09:30:58
+// dataflow 1.2.0.RELEASE log opened at 2018-01-23 09:31:43
+dataflow config server https://dataflow-de0d73fa-22fb-498b-b10e-55b432d1bbf9.cfapps.io
+dataflow config server https://dataflow-de0d73fa-22fb-498b-b10e-55b432d1bbf9.cfapps.io
+quit
+// dataflow 1.2.0.RELEASE log closed at 2018-01-23 09:32:51
+// dataflow 1.2.0.RELEASE log opened at 2018-01-23 09:47:57
+quit
+// dataflow 1.2.0.RELEASE log closed at 2018-01-23 09:49:55
+// dataflow 1.2.0.RELEASE log opened at 2018-01-23 09:51:23
+app list
+stream list
+stream deploy csql
+stream deploy cities
+stream deploy venue
+stream deploy meetups-aggregate-counter
+aggregate-counter display --name meetups-aggregate-counter

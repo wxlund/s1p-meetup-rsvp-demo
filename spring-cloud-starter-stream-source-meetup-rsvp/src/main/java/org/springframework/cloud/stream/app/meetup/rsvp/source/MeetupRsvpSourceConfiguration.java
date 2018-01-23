@@ -25,10 +25,11 @@ import org.springframework.integration.core.MessageProducer;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * TwitterStream source app.
+ * MeetupRSVPStream source app.
  *
  * @author Ilayaperumal Gopinathan
  * @author Gary Russell
+ * @author Wayne Lund
  */
 @EnableBinding(Source.class)
 @EnableConfigurationProperties({ MeetupRsvpStreamProperties.class })

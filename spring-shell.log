@@ -3728,11 +3728,3 @@ quit
 // dataflow 1.2.0.RELEASE log opened at 2018-01-23 09:47:57
 quit
 // dataflow 1.2.0.RELEASE log closed at 2018-01-23 09:49:55
-// dataflow 1.2.0.RELEASE log opened at 2018-01-23 09:51:23
-app list
-stream list
-stream deploy csql
-stream deploy cities
-stream deploy venue
-stream deploy meetups-aggregate-counter
-aggregate-counter display --name meetups-aggregate-counter

@@ -12,11 +12,11 @@
 		<artifactId>meetup-rsvp-app-starters-build</artifactId>
 		<version>0.0.1.BUILD-SNAPSHOT</version>
 	</parent>
-<!--
+
     <properties>
         <session.executionRootDirectory>../</session.executionRootDirectory>
     </properties>
--->
+
 <dependencies>
 	<dependency>
 		<groupId>org.springframework.cloud</groupId>

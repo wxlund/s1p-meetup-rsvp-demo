@@ -31,7 +31,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class MeetupRsvpStreamProperties {
 
 	/**
-	 * Twitter stream type (such as sample, firehose). Default is sample.
+	 * This is probably an unnecessary stream type left over from cloning twitterstream
 	 */
 	private MeetupRsvpStreamType streamType = MeetupRsvpStreamType.SAMPLE;
 

@@ -20,12 +20,12 @@
             <dependency>
                 <groupId>org.springframework.cloud.stream.app</groupId>
                 <artifactId>spring-cloud-starter-stream-source-meetup-rsvp</artifactId>
-				<version>1.3.1.RELEASE</version>
+				<version>0.0.1.BUILD_SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.cloud.stream.app</groupId>
                 <artifactId>meetup-rsvp-app-starters-test-support</artifactId>
-                <version>1.3.1.RELEASE</version>
+                <version>0.0.1.BUILD-SNAPSHOT</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

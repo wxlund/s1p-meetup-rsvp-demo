@@ -21,7 +21,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * {@link org.springframework.integration.core.MessageProducer} implementation to send Twitter stream messages.
+ * {@link org.springframework.integration.core.MessageProducer} implementation to send meetup rsvp stream messages.
  *
  * @author Ilayaperumal Gopinathan
  * @author Gary Russell

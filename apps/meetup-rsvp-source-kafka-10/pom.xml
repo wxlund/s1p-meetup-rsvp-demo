@@ -5,12 +5,12 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.6.RELEASE</version>
+    <version>1.5.9.RELEASE</version>
     <relativePath></relativePath>
   </parent>
   <groupId>org.springframework.cloud.stream.app</groupId>
   <artifactId>meetup-rsvp-source-kafka-10</artifactId>
-  <version>1.2.1.BUILD-SNAPSHOT</version>
+  <version>0.0.1.BUILD-SNAPSHOT</version>
   <name>meetup-rsvp-source-kafka-10</name>
   <description>Spring Cloud Stream Meetup Rsvp Source Kafka 10 Binder Application</description>
   <distributionManagement>
@@ -35,14 +35,14 @@
       <dependency>
         <groupId>org.springframework.cloud.stream.app</groupId>
         <artifactId>meetup-rsvp-app-dependencies</artifactId>
-        <version>1.2.1.BUILD-SNAPSHOT</version>
+        <version>0.0.1.BUILD-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework.cloud.stream.app</groupId>
         <artifactId>app-starters-core-dependencies</artifactId>
-        <version>1.2.1.BUILD-SNAPSHOT</version>
+        <version>1.3.1.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

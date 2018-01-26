@@ -131,3 +131,4 @@ local.properties
 .recommenders/
 Contact GitHub API Training Shop Blog About
 .mvn
+/spring-cloud-starter-stream-source-meetup-rsvp/spring-cloud-starter-stream-source-twitterstream.iml
